@@ -44,7 +44,7 @@ public class ClientePref {
             }
         } while (creando == true);
     }
-    
+
     public double generarDescuento(String tipo, double subtotal, int cc) {
         double dctoFinal = 0;
         double dctoSuite = 0.04, dcto1 = 0;

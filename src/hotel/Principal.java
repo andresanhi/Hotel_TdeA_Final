@@ -7,6 +7,7 @@ public class Principal {
         Hotel h = new Hotel();
         h.generarHabitaciones();
         h.generarMenu();
+       
     }
 
 }
