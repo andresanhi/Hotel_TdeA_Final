@@ -76,7 +76,14 @@ public class Hotel {
         }
         /*Iterator it = rooms.iterator();
         while (it.hasNext()){
-            System.out.println(it.next());
+        Clientes c = it.next();
+            System.out.println(c.nombre,c.cc);
         }*/
+    }
+    
+    public boolean validarDisponibilidad(int habitacion){
+        boolean estado;
+        estado = rooms.get(habitacion).estado;
+        return estado;
     }
 }
