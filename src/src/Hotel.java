@@ -7,7 +7,7 @@ public class Hotel {
     Scanner sc = new Scanner(System.in);
     private static ArrayList<Habitaciones> rooms = new ArrayList<>();
 
-    public void generarMenu(){
+    public void generarMenu() {
         String nombreHotel, nit;
         int opc = 0;
         nombreHotel = "HOSTAL EL PASANTE";
@@ -22,9 +22,7 @@ public class Hotel {
         switch (opc) {
             case 1:
                 //Reserva r = new Reserva();
-                //r.generarReserva;
-                Pruea p = new Pruea();
-                p.iniciarprueba();
+                //r.GenerarReserva();
                 break;
             case 2:
                 Ingreso c = new Ingreso();
@@ -78,7 +76,14 @@ public class Hotel {
         }
         /*Iterator it = rooms.iterator();
         while (it.hasNext()){
-            System.out.println(it.next());
+        Clientes c = it.next();
+            System.out.println(c.nombre,c.cc);
         }*/
+    }
+    
+    public boolean validarDisponibilidad(int habitacion){
+        boolean estado;
+        estado = rooms.get(habitacion).estado;
+        return estado;
     }
 }

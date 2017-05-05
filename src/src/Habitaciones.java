@@ -9,6 +9,7 @@ import java.util.*;
 
 class Habitaciones {
 
+
     int numHabitacion;
     int Capacidad;
     String tipoHabitacion;
@@ -19,6 +20,7 @@ class Habitaciones {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
 
     public Habitaciones(int numHabitacion, String tipoHabitacion, int Capacidad, double precioXNoche, boolean estado) {
         this.numHabitacion = numHabitacion;
