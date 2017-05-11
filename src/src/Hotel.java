@@ -1,5 +1,7 @@
 package src;
 
+import Pantallas.P_Habitaciones;
+import src.Habitaciones;
 import java.util.*;
 
 public class Hotel {
@@ -65,7 +67,33 @@ public class Hotel {
 
     public void mostrarHabitaciones() {
         String estado;
-        System.out.println("Número\tTipo\t\tCapacidad\tPrecioNoche\tEstado");
+        String titulos[] = {"N° Habitación", "Tipo", "Capacidad", "PrecioNoche", "Estado"};
+        String habitaciones[][] = new String[rooms.size()][5];
+        for (int i = 0; i < rooms.size(); i++) {
+            habitaciones[i][0] = String.valueOf(rooms.get(i).numHabitacion);
+            habitaciones[i][1] = rooms.get(i).tipoHabitacion;
+            habitaciones[i][2] = String.valueOf(rooms.get(i).Capacidad);
+            habitaciones[i][3] = String.valueOf(rooms.get(i).precioXNoche);
+            estado = mostrarEstado(i);
+            habitaciones[i][4] = estado;
+        }
+        P_Habitaciones ph = new P_Habitaciones();
+        ph.setVisible(true);
+        ph.crearTabla(titulos, habitaciones);
+
+    }
+    
+    public String mostrarEstado (int pos){
+        String estado = "";
+        if (rooms.get(pos).estado == true) {
+                estado = "Disponible";
+            } else {
+                estado = "Ocupada";
+            }
+        return (estado);
+    }
+
+    /*System.out.println("Número\tTipo\t\tCapacidad\tPrecioNoche\tEstado");
         for (int i = 0; i < rooms.size(); i++) {
             if (rooms.get(i).estado == true) {
                 estado = "Disponible";
@@ -79,11 +107,42 @@ public class Hotel {
         Clientes c = it.next();
             System.out.println(c.nombre,c.cc);
         }*/
-    }
-    
-    public boolean validarDisponibilidad(int habitacion){
+    public boolean validarDisponibilidad(int habitacion) {
         boolean estado;
         estado = rooms.get(habitacion).estado;
         return estado;
     }
+
+    /*public void actualizarEstado(Date checkin) {
+        int ha;
+        boolean validar = true;
+        Reserva r = new Reserva();
+        ArrayList<Reservas> re = r.getCliente();
+        ArrayList<Reservas> reActivas = new ArrayList<Reservas>();
+        Iterator it = re.iterator();
+        while (it.hasNext()) {
+            Reservas cl = (Reservas) it.next();
+            if (cl.estado == "Activa") {
+                reActivas.add(cl);
+            }
+        }
+        for (ha = 0; ha <= rooms.size(); ha++) {
+            Iterator ir = reActivas.iterator();
+            while (it.hasNext() && validar == true) {
+                Reservas cl1 = (Reservas) it.next();
+                if (cl1.numHabitacion == ha) {
+                    if (cl1.fingreso >= checkin && cl1.fsalida <= checkin) {
+                        rooms.get(ha).setEstado(false);
+                        validar = false;
+                    } else {
+                        rooms.get(ha).setEstado(true);
+                        validar = false;
+                    }
+                }
+            }
+        }
+        /*if (rooms.get(habitacion).estado == true) {
+            rooms.get(1).setEstado(false);
+            System.out.println(rooms.get(habitacion).estado);
+    }*/
 }

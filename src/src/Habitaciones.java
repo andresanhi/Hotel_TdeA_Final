@@ -21,7 +21,6 @@ class Habitaciones {
         this.estado = estado;
     }
 
-
     public Habitaciones(int numHabitacion, String tipoHabitacion, int Capacidad, double precioXNoche, boolean estado) {
         this.numHabitacion = numHabitacion;
         this.Capacidad = Capacidad;
