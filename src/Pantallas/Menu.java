@@ -1,10 +1,12 @@
 package Pantallas;
 
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import src.ClientePref;
-
+import src.Reserva;
 
 // @author Jhony_Angulo
-
 public class Menu extends javax.swing.JFrame {
 
     /**
@@ -13,6 +15,7 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         setLocationRelativeTo(null);
+        //super.setSize(getToolkit().getScreenSize());
     }
 
     /**
@@ -59,6 +62,11 @@ public class Menu extends javax.swing.JFrame {
         btn_Reservar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btn_ReservarMouseExited(evt);
+            }
+        });
+        btn_Reservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ReservarActionPerformed(evt);
             }
         });
 
@@ -292,15 +300,32 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_SalirActionPerformed
 
     private void btn_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClientesActionPerformed
-        P_Clientes c = new P_Clientes ();
-        this.dispose();
-        c.setVisible(true);
+        ClientePref cp = new ClientePref();
+        cp.mostrarClientes();
+        P_Clientes pc = new P_Clientes();
+        pc.mostrarClientes();
+        pc.setVisible(true);
     }//GEN-LAST:event_btn_ClientesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ClientePref cp = new ClientePref();
-        cp.pintarClientes();
+        cp.mostrarClientes();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_ReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReservarActionPerformed
+        //UIManager UI = new UIManager ();
+        //UI.put("OptionPane.background", new ColorUIResource(51,51,51));
+        //UI.put("OptionPane.messagebackground", new ColorUIResource(51,51,51));
+        //UI.put("Panel.background", new ColorUIResource(51,51,51));
+        int opc = JOptionPane.showConfirmDialog(null, "¿Tiene número de reserva?", "ALERTA", 0, 1);
+        if (opc == 1) {
+            P_Reservas pr = new P_Reservas();
+            pr.setVisible(true);
+        } else {
+            P_Ingreso pi = new P_Ingreso();
+            pi.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_ReservarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
