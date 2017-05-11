@@ -12,6 +12,6 @@ package src;
 public class Pruea {
     public void iniciarprueba(){
         Hotel h = new Hotel();
-        h.mostrarHabitaciones();
+        //h.actualizarEstado(1);
     }
 }
