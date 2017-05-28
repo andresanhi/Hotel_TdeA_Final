@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
 
     public String db = "basereserva";
-    //almacenamiento de la cadena de coneccion
+    //almacenamiento de la cadena de conexión
     public String url = "jdbc:mysql://127.0.0.1/" + db;
     public String user = "root";
     public String pass = "";

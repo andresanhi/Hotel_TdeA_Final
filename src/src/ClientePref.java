@@ -36,6 +36,7 @@ public class ClientePref {
         Connection link = null;
         Conexion con = new Conexion();
         String SQL = null;
+        int res = 0;
         int hospedajes = 0;
         //Creo el objeto que voy a guardar en el ArrayList llamado cliente.
         /*Clientes cl = new Clientes(tipo, cc, nombre, telefono, mail, hospedajes);
@@ -54,6 +55,7 @@ public class ClientePref {
             pSQL.setString(5, mail);
             pSQL.setInt(6, hospedajes);
             
+            res = pSQL.executeUpdate();
             pSQL.close();
 
         } catch (SQLException e) {
