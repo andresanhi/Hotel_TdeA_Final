@@ -46,7 +46,7 @@ public class ClientePref {
             }
             link.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error validando existencia\n" + e);
+            JOptionPane.showMessageDialog(null, "Error validando existencia\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
         return (insertar);
     }
@@ -81,7 +81,7 @@ public class ClientePref {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al intentar almacenar el cliente:\n"
-                    + e, "Error en la operación", JOptionPane.ERROR_MESSAGE);
+                    + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             // Después de ejecutar la instrucción se cierra la conexión.
         } finally {
             try {
@@ -124,7 +124,7 @@ public class ClientePref {
 
     public DefaultTableModel mostrarClientes() {
         DefaultTableModel modelo = new DefaultTableModel();
-        String[] titulos = {"Nombre", "TipoDocumento", "N°Documento", "Teléfono", "Email", "Hospedajes"};
+        /*String[] titulos = {"Nombre", "TipoDocumento", "N°Documento", "Teléfono", "Email", "Hospedajes"};
         modelo.setColumnIdentifiers(titulos);
         String[] filacliente = new String[modelo.getColumnCount()];
         String tipoDoc = "";
@@ -137,17 +137,21 @@ public class ClientePref {
             filacliente[4] = cliente.get(i).email;
             filacliente[5] = String.valueOf(cliente.get(i).hospedajes);
             modelo.addRow(filacliente);
+        }*/
+        Connection link = null;
+        Conexion con = new Conexion();
+        String SQL = "SELECT * FROM tblClientes";
+        ResultSet res = null;
+        try {
+            link = con.conectar();
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            res = pSQL.executeQuery();
+            ModeloTabla mt = new ModeloTabla();
+            modelo = mt.generarModelo(res);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de clientes\n" + e,"ALERTA", JOptionPane.ERROR_MESSAGE);
         }
         return (modelo);
-        //P_Clientes pc = new P_Clientes();
-        //pc.setVisible(true);
-        //pc.mostrarClientes(titulos, clientes);
-        //pc.mostrarClientes(modelo);
-        /*Iterator it = cliente.iterator();
-        while (it.hasNext()) {
-            Clientes c = (Clientes) it.next();
-            System.out.println(c.nombre + c.tipo + "\t" + "\t" + c.cc + "\t" + c.telefono + "\t" + c.hospedajes);
-        }*/
     }
 
     public DefaultTableModel buscarCliente(int cc) {
