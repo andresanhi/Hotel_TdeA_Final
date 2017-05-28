@@ -95,6 +95,11 @@ public class Menu extends javax.swing.JFrame {
                 btn_IngresarMouseExited(evt);
             }
         });
+        btn_Ingresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_IngresarActionPerformed(evt);
+            }
+        });
 
         btn_Clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Clientes.png"))); // NOI18N
         btn_Clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -300,8 +305,6 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_SalirActionPerformed
 
     private void btn_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClientesActionPerformed
-        ClientePref cp = new ClientePref();
-        cp.mostrarClientes();
         P_Clientes pc = new P_Clientes();
         pc.mostrarClientes();
         pc.setVisible(true);
@@ -313,10 +316,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_ReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReservarActionPerformed
-        //UIManager UI = new UIManager ();
-        //UI.put("OptionPane.background", new ColorUIResource(51,51,51));
-        //UI.put("OptionPane.messagebackground", new ColorUIResource(51,51,51));
-        //UI.put("Panel.background", new ColorUIResource(51,51,51));
+        P_Reservas pr = new P_Reservas();
+        pr.setVisible(true);
+    }//GEN-LAST:event_btn_ReservarActionPerformed
+
+    private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         int opc = JOptionPane.showConfirmDialog(null, "¿Tiene número de reserva?", "ALERTA", 0, 1);
         if (opc == 1) {
             P_Reservas pr = new P_Reservas();
@@ -325,7 +329,7 @@ public class Menu extends javax.swing.JFrame {
             P_Ingreso pi = new P_Ingreso();
             pi.setVisible(true);
         }
-    }//GEN-LAST:event_btn_ReservarActionPerformed
+    }//GEN-LAST:event_btn_IngresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
