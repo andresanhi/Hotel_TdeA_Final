@@ -27,7 +27,7 @@ public class Conexion {
         Connection link = null;
         //capturador de errores  
         try {
-            //driver de la coneccion        
+            //driver de la conexión        
             Class.forName("org.gjt.mm.mysql.Driver");
             //enlace base de datos        
             link = DriverManager.getConnection(this.url, this.user, this.pass);
@@ -36,7 +36,7 @@ public class Conexion {
             JOptionPane.showConfirmDialog(null, e);
 
         }
-        //retornar cadena de coneccion    
+        //retornar cadena de conexión    
         return link;
     }
  

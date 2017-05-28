@@ -3,6 +3,9 @@ package src;
 // @author Jhony_Angulo
 import Pantallas.Menu;
 import Pantallas.P_Clientes;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,14 +30,47 @@ public class ClientePref {
         return (insertar);
     }
 
-    public int crearClientePref(String nombre, int tipo, int cc, int telefono, String mail) {
+    public int crearClientePref(String nombre, int tipo, String cc, int telefono, String mail) {
         // Creo un objeto de la vista que se llama P_Clientes
         P_Clientes pc = new P_Clientes();
+        Connection link = null;
+        Conexion con = new Conexion();
+        String SQL = null;
         int hospedajes = 0;
         //Creo el objeto que voy a guardar en el ArrayList llamado cliente.
-        Clientes cl = new Clientes(tipo, cc, nombre, telefono, mail, hospedajes);
-        cliente.add(cl);
-        //Después de crearlo pregunto si quiere crear otro y ahí es donde tengo el dilema.
+        /*Clientes cl = new Clientes(tipo, cc, nombre, telefono, mail, hospedajes);
+        cliente.add(cl);*/
+        //Líneas SQL para insertar datos
+        SQL = "INSERT INTO tblClientes(idClientes, nombre, tipo, documento, telefono, email, hospedaje)"
+                + "VALUES (default,?,?,?,?,?,?)";
+        //Inserción en la base de datos en la tabla tblClientes
+        try {
+            link = con.conectar();
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            pSQL.setString(1, nombre);
+            pSQL.setInt(2, tipo);
+            pSQL.setString(3, cc);
+            pSQL.setInt(4, telefono);
+            pSQL.setString(5, mail);
+            pSQL.setInt(6, hospedajes);
+            
+            pSQL.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al intentar almacenar el cliente:\n"
+                    + e, "Error en la operación", JOptionPane.ERROR_MESSAGE);
+            // Después de ejecutar la instrucción se cierra la conexión.
+        } finally {
+            try {
+                if (con != null) {
+                    link.close();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al intentar cerrar la conexión:\n"
+                        + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        //Después de crearlo se pregunta si quiere crear otro y devuelve a la pantalla la opción.
         int opc = JOptionPane.showConfirmDialog(null, "Cliente creado exitosamente\n¿Desea crear otro cliente?", "CONFIRMACIÓN", 0, 1);
         return (opc);
     }
