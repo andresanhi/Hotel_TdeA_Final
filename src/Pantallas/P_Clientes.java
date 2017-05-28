@@ -279,10 +279,11 @@ public class P_Clientes extends javax.swing.JFrame {
                     .addComponent(txt_mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(panel_CPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panel_CPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_CPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -333,9 +334,9 @@ public class P_Clientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor verifique antes de guardar", "ALERTA", 0);
         } else {
             ClientePref cf = new ClientePref();
-            boolean insertar = cf.validarExistencia(Integer.parseInt(txt_cc.getText()));
+            boolean insertar = cf.validarExistencia(txt_cc.getText());
             if (insertar == true) {
-                int opc = cf.crearClientePref(txt_Nombre.getText(), txt_tipo.getSelectedIndex(), Integer.parseInt(txt_cc.getText()), Integer.parseInt(txt_tel.getText()), txt_mail.getText());
+                int opc = cf.crearClientePref(txt_Nombre.getText(), txt_tipo.getSelectedIndex(), txt_cc.getText(), Integer.parseInt(txt_tel.getText()), txt_mail.getText());
                 if (opc == 0) {
                     limpiarCampos();
                     mostrarClientes();
@@ -389,27 +390,8 @@ public class P_Clientes extends javax.swing.JFrame {
                 ((JComboBox) panel.getComponents()[i]).setSelectedIndex(0);
             }
         }
-        /*txt_Nombre.setText("Prueba");
-        txt_cc.setText(null);
-        txt_tel.setText(null);
-        txt_tipo.setSelectedIndex(0);*/
     }
 
-    /*public void mostrarClientes(String [] titulos, String [][] clientes){
-            tblClientes.setModel(new javax.swing.table.DefaultTableModel(
-            clientes,
-            titulos
-        ){
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
-            };
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
-        tblClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tblClientes.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-    }*/
     public void mostrarClientes() {
         DefaultTableModel modelo = new DefaultTableModel();
         ClientePref cp = new ClientePref();
