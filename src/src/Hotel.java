@@ -1,8 +1,13 @@
 package src;
 
 import Pantallas.P_Habitaciones;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import src.Habitaciones;
 import java.util.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Hotel {
 
@@ -66,7 +71,7 @@ public class Hotel {
     }
 
     public void mostrarHabitaciones() {
-        String estado;
+        /*String estado;
         String titulos[] = {"N° Habitación", "Tipo", "Capacidad", "PrecioNoche", "Estado"};
         String habitaciones[][] = new String[rooms.size()][5];
         for (int i = 0; i < rooms.size(); i++) {
@@ -76,20 +81,32 @@ public class Hotel {
             habitaciones[i][3] = String.valueOf(rooms.get(i).precioXNoche);
             estado = mostrarEstado(i);
             habitaciones[i][4] = estado;
+        }*/
+        DefaultTableModel modelo = null;
+        Connection link = null;
+        Conexion con = new Conexion();
+        String SQL = "SELECT num_habitacion,capacidad, tipo_habitacion, estado, precio_noche FROM tblHabitaciones";
+        ResultSet res = null;
+        try {
+            link = con.conectar();
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            res = pSQL.executeQuery();
+            ModeloTabla mt = new ModeloTabla();
+            modelo = mt.generarModelo(res);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de habitaciones\n" + e,"ALERTA", JOptionPane.ERROR_MESSAGE);
         }
-        P_Habitaciones ph = new P_Habitaciones();
+        P_Habitaciones ph = new P_Habitaciones(modelo);
         ph.setVisible(true);
-        ph.crearTabla(titulos, habitaciones);
-
     }
-    
-    public String mostrarEstado (int pos){
+
+    public String mostrarEstado(int pos) {
         String estado = "";
         if (rooms.get(pos).estado == true) {
-                estado = "Disponible";
-            } else {
-                estado = "Ocupada";
-            }
+            estado = "Disponible";
+        } else {
+            estado = "Ocupada";
+        }
         return (estado);
     }
 

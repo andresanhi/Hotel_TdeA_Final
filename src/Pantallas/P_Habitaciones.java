@@ -14,23 +14,22 @@ public class P_Habitaciones extends javax.swing.JFrame {
     /**
      * Creates new form P_Habitaciones2
      */
-    public P_Habitaciones() {
+    public P_Habitaciones(DefaultTableModel modelo) {
         initComponents();
         setLocationRelativeTo(null);
+        crearTabla(modelo);
     }
 
-    public void crearTabla(String[] titulos, String[][] datos) {
-        gridRooms.setModel(new javax.swing.table.DefaultTableModel(
-                datos,
-                titulos
-        ) {
+    public void crearTabla(DefaultTableModel modelo) {
+        /*gridRooms.setModel(new javax.swing.table.DefaultTableModel(datos,titulos) {
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false
             };
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
-        });
+        });*/
+        gridRooms.setModel(modelo);
         gridRooms.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         gridRooms.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
     }

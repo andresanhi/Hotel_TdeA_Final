@@ -58,6 +58,8 @@ public class P_Reservas extends javax.swing.JFrame {
         txt_Precio = new javax.swing.JTextField();
         btn_Guardar = new javax.swing.JButton();
         btn_Cancelar = new javax.swing.JButton();
+        txt_TipoHab1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,6 +197,10 @@ public class P_Reservas extends javax.swing.JFrame {
             }
         });
 
+        txt_TipoHab1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -240,11 +246,16 @@ public class P_Reservas extends javax.swing.JFrame {
                                             .addComponent(fIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(cc8)
                                             .addComponent(cc5)
-                                            .addComponent(txt_Precio, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(txt_Precio, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(35, 35, 35)
+                                                .addComponent(txt_TipoHab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(103, 103, 103)
                                         .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 189, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(64, 64, 64))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,8 +294,10 @@ public class P_Reservas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_TipoHab)
-                            .addComponent(txt_Precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(168, 168, 168)
+                            .addComponent(txt_Precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_TipoHab1)
+                            .addComponent(jButton1))
+                        .addGap(169, 169, 169)
                         .addComponent(btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -332,7 +345,7 @@ public class P_Reservas extends javax.swing.JFrame {
         if(dif <0){
             JOptionPane.showMessageDialog(null, "La fecha de salida no puede ser inferior a la fecha de ingreso, por favor valide","ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            System.out.println("Valide las fechas");
+            //aquí el código para guardar.
         }
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
@@ -360,6 +373,7 @@ public class P_Reservas extends javax.swing.JFrame {
     private javax.swing.JLabel cc8;
     private com.toedter.calendar.JDateChooser fIngreso;
     private com.toedter.calendar.JDateChooser fSalida;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -371,6 +385,7 @@ public class P_Reservas extends javax.swing.JFrame {
     private javax.swing.JTextField txt_Tel;
     private javax.swing.JComboBox<String> txt_Tipo;
     private javax.swing.JComboBox<String> txt_TipoHab;
+    private javax.swing.JComboBox<String> txt_TipoHab1;
     private javax.swing.JComboBox<String> txt_acomp;
     // End of variables declaration//GEN-END:variables
 }

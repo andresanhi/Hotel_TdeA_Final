@@ -140,7 +140,7 @@ public class ClientePref {
         }*/
         Connection link = null;
         Conexion con = new Conexion();
-        String SQL = "SELECT * FROM tblClientes";
+        String SQL = "SELECT nombre,tipo,documento,telefono,email, hospedaje FROM tblClientes";
         ResultSet res = null;
         try {
             link = con.conectar();
@@ -148,7 +148,7 @@ public class ClientePref {
             res = pSQL.executeQuery();
             ModeloTabla mt = new ModeloTabla();
             modelo = mt.generarModelo(res);
-        } catch (SQLException e) {
+        } catch (SQLException e) { 
             JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de clientes\n" + e,"ALERTA", JOptionPane.ERROR_MESSAGE);
         }
         return (modelo);
