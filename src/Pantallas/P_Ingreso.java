@@ -8,20 +8,25 @@ package Pantallas;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import src.Reserva;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
-/**
- *
- * @author Jhony_Angulo
- */
+//@author Jhony_Angulo
 public class P_Ingreso extends javax.swing.JFrame {
 
     /**
      * Creates new form P_Ingreso
      */
+    JPopupMenu popup = new JPopupMenu();
+    JMenuItem Item1 = new JMenuItem("Activar");
+    JMenuItem Item2 = new JMenuItem("Eliminar");
+
     public P_Ingreso() {
         initComponents();
-        setLocationRelativeTo(null);   
+        setLocationRelativeTo(null);
         cargarReservas();
+        popup.add(Item1,Item2);
+        gridReservas.setComponentPopupMenu(popup);
     }
 
     /**
@@ -89,6 +94,11 @@ public class P_Ingreso extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        gridReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gridReservasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(gridReservas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -144,7 +154,7 @@ public class P_Ingreso extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_BuscarMouseExited
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
-        Reserva r = new Reserva ();
+        Reserva r = new Reserva();
         DefaultTableModel modelo = new DefaultTableModel();
         modelo = r.buscarReserva(Integer.parseInt(txt_codReserva.getText()));
         gridReservas.setModel(modelo);
@@ -152,9 +162,17 @@ public class P_Ingreso extends javax.swing.JFrame {
         gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
-    public void cargarReservas(){
+    private void gridReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridReservasMouseClicked
+
+    }//GEN-LAST:event_gridReservasMouseClicked
+
+    private void Item1ActionPerformed(java.awt.event.ActionEvent evt){
+        System.out.println("Clic en Activar");
+    }   
+    
+    public void cargarReservas() {
         DefaultTableModel modelo = new DefaultTableModel();
-        Reserva r = new Reserva ();
+        Reserva r = new Reserva();
         modelo = r.mostrarReservas();
         gridReservas.setModel(modelo);
         gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);

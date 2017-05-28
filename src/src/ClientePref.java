@@ -154,7 +154,7 @@ public class ClientePref {
         return (modelo);
     }
 
-    public DefaultTableModel buscarCliente(int cc) {
+    public DefaultTableModel buscarCliente(String cc) {
         DefaultTableModel modelo = new DefaultTableModel();
         String[] titulos = {"Nombre", "TipoDocumento", "N°Documento", "Teléfono", "Email", "Hospedajes"};
         modelo.setColumnIdentifiers(titulos);

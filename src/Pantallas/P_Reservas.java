@@ -179,6 +179,11 @@ public class P_Reservas extends javax.swing.JFrame {
                 btn_CancelarMouseExited(evt);
             }
         });
+        btn_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -308,6 +313,10 @@ public class P_Reservas extends javax.swing.JFrame {
     private void btn_CancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CancelarMouseExited
         btn_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Cancelar.png")));
     }//GEN-LAST:event_btn_CancelarMouseExited
+
+    private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_CancelarActionPerformed
 
     /**
      * @param args the command line arguments

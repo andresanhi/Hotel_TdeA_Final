@@ -106,4 +106,12 @@ public class Reserva {
         }
         return (modelo);
     }
+    
+    public void eliminarReserva(int codRes){
+        
+    }
+    
+    public void activarReserva(int codRes){
+        
+    }
 }

@@ -404,8 +404,8 @@ public class P_Clientes extends javax.swing.JFrame {
     public void buscarClientes() {
         DefaultTableModel modelo = new DefaultTableModel();
         ClientePref cp = new ClientePref();
-        int cc = Integer.parseInt(txt_cc.getText());
-        modelo = cp.buscarCliente(123);
+        String cc = txt_cc.getText();
+        modelo = cp.buscarCliente(cc);
         gridClientes.setModel(modelo);
         gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
