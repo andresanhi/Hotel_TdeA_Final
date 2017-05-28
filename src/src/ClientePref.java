@@ -5,6 +5,7 @@ import Pantallas.Menu;
 import Pantallas.P_Clientes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JOptionPane;
@@ -17,8 +18,8 @@ public class ClientePref {
     private static ArrayList<Clientes> cliente = new ArrayList<Clientes>();
     Scanner sc = new Scanner(System.in);
 
-    public boolean validarExistencia(int cc) {
-        boolean insertar = true;
+    public boolean validarExistencia(String cc) {
+        /*boolean insertar = true;
         boolean control = true;
         Iterator<Clientes> it = cliente.iterator();
         while (it.hasNext()) {
@@ -26,6 +27,26 @@ public class ClientePref {
             if (i.cc == cc) {
                 insertar = false;
             }
+        }*/
+        boolean insertar = true;
+        Connection link = null;
+        Conexion con = new Conexion();
+        String SQL = null;
+        ResultSet res = null;
+        SQL = "SELECT cc FROM tblClientes WHERE cc = '" + cc + "'";
+        try {
+            link = con.conectar();
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            res = pSQL.executeQuery();
+            while (res.next()) {
+                String cc_tbl = res.getString("cc");
+                if (cc == cc_tbl) {
+                    insertar = false;
+                }
+            }
+            link.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error validando existencia\n" + e);
         }
         return (insertar);
     }
@@ -54,7 +75,7 @@ public class ClientePref {
             pSQL.setInt(4, telefono);
             pSQL.setString(5, mail);
             pSQL.setInt(6, hospedajes);
-            
+
             res = pSQL.executeUpdate();
             pSQL.close();
 
