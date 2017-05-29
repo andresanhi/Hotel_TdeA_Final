@@ -119,6 +119,7 @@ public class ClientePref {
             ResultSet res = pSQL.executeQuery(SQL);
             ModeloTabla mt = new ModeloTabla();
             modelo = mt.generarModelo(res);
+
             res.close();
             link.close();
         } catch (SQLException e) {
@@ -129,27 +130,27 @@ public class ClientePref {
 
     public DefaultTableModel buscarCliente(String cc) {
         DefaultTableModel modelo = new DefaultTableModel();
-        String[] titulos = {"Nombre", "TipoDocumento", "N°Documento", "Teléfono", "Email", "Hospedajes"};
-        modelo.setColumnIdentifiers(titulos);
-        String[] filacliente = new String[modelo.getColumnCount()];
-        String tipoDoc = "";
-        Iterator it = cliente.iterator();
-        while (it.hasNext()) {
-            Clientes c = (Clientes) it.next();
-            System.out.println(c.cc);
-            /*if (c.cc == cc) {
-                System.out.println("Cliente existe");
-                tipoDoc = validarDocumento(c.tipo);
-                filacliente[0] = c.nombre;
-                filacliente[1] = tipoDoc;
-                filacliente[2] = String.valueOf(c.cc);
-                filacliente[3] = String.valueOf(c.telefono);
-                filacliente[4] = c.email;
-                filacliente[5] = String.valueOf(c.hospedajes);
-                modelo.addRow(filacliente);
-            } else {
-                System.out.println("Cliente no existe");
+        String SQL = "SELECT nombre,\n"
+                + "CASE WHEN tipo = 1 THEN \"Cédula de ciudadanía\"\n"
+                + "     WHEN tipo = 2 THEN \"Cédula extranjería\"\n"
+                + "     WHEN tipo = 3 THEN \"Pasaporte\" END as tipo,documento,telefono,email, hospedaje FROM tblclientes WHERE documento = ?";
+        try {
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            pSQL.setString(1, cc);
+            ResultSet rs = pSQL.executeQuery();
+            ModeloTabla mt = new ModeloTabla();
+            modelo = mt.generarModelo(rs);
+            /*if (!rs.next()) {
+                JOptionPane.showConfirmDialog(null, "No se encontró ningún cliente con el documento: " + cc, "ALERTA", JOptionPane.WARNING_MESSAGE);
             }*/
+            
+            link.close();
+            rs.close();
+            pSQL.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Se ha presentado un error generando la búsqueda\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return (modelo);
     }
