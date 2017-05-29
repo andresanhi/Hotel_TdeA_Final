@@ -46,11 +46,6 @@ public class ClientePref {
         Connection link = null;
         Conexion con = new Conexion();
         String SQL = null;
-        int res = 0;
-        //int hospedajes = 0;
-        //Creo el objeto que voy a guardar en el ArrayList llamado cliente.
-        /*Clientes cl = new Clientes(tipo, cc, nombre, telefono, mail, hospedajes);
-        cliente.add(cl);*/
         //Líneas SQL para insertar datos
         SQL = "INSERT INTO tblClientes(idCliente, nombre, tipo, documento, telefono, email, hospedaje)"
                 + "VALUES (DEFAULT,?,?,?,?,?,0)";
@@ -63,9 +58,8 @@ public class ClientePref {
             pSQL.setString(3, cc);
             pSQL.setInt(4, telefono);
             pSQL.setString(5, mail);
-            //pSQL.setInt(6, hospedajes);
 
-            res = pSQL.executeUpdate();
+            pSQL.executeUpdate();
             pSQL.close();
             //Después de crearlo se pregunta si quiere crear otro y devuelve a la pantalla la opción.
 
@@ -113,38 +107,16 @@ public class ClientePref {
 
     public DefaultTableModel mostrarClientes() {
         DefaultTableModel modelo = new DefaultTableModel();
-        /*String[] titulos = {"Nombre", "TipoDocumento", "N°Documento", "Teléfono", "Email", "Hospedajes"};
-        modelo.setColumnIdentifiers(titulos);
-        String[] filacliente = new String[modelo.getColumnCount()];
-        String tipoDoc = "";
-        for (int i = 0; i < cliente.size(); i++) {
-            tipoDoc = validarDocumento(i);
-            filacliente[0] = cliente.get(i).nombre;
-            filacliente[1] = tipoDoc;
-            filacliente[2] = String.valueOf(cliente.get(i).cc);
-            filacliente[3] = String.valueOf(cliente.get(i).telefono);
-            filacliente[4] = cliente.get(i).email;
-            filacliente[5] = String.valueOf(cliente.get(i).hospedajes);
-            modelo.addRow(filacliente);
-        }*/
         Connection link = null;
         Conexion con = new Conexion();
         String SQL = "SELECT nombre,\n"
                 + "CASE WHEN tipo = 1 THEN \"Cédula de ciudadanía\"\n"
                 + "     WHEN tipo = 2 THEN \"Cédula extranjería\"\n"
                 + "     WHEN tipo = 3 THEN \"Pasaporte\" END as tipo,documento,telefono,email, hospedaje FROM tblclientes";
-        ResultSet res = null;
-        String dato = null;
         try {
             link = con.conectar();
-            //PreparedStatement pSQL = link.prepareStatement(SQL);
-            Statement s = link.createStatement();
-            res = s.executeQuery(SQL);
-            if (res.getRow() == 0) {
-                System.out.println("Está vacío");
-            } else {
-                System.out.println("Tiene datos");
-            }
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            ResultSet res = pSQL.executeQuery(SQL);
             ModeloTabla mt = new ModeloTabla();
             modelo = mt.generarModelo(res);
             res.close();
@@ -152,9 +124,6 @@ public class ClientePref {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de clientes\n" + e, "ALERTA", JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println("Dato CP Nuevo " + dato);
-        System.out.println("Modelo ClientePref " + modelo);
-        System.out.println("ResultSet CP " + res);
         return (modelo);
     }
 
