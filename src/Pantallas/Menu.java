@@ -306,8 +306,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void btn_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClientesActionPerformed
         P_Clientes pc = new P_Clientes();
-        pc.mostrarClientes();
         pc.setVisible(true);
+        pc.mostrarClientes();
     }//GEN-LAST:event_btn_ClientesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

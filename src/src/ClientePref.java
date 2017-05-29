@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,34 +20,22 @@ public class ClientePref {
     Scanner sc = new Scanner(System.in);
 
     public boolean validarExistencia(String cc) {
-        /*boolean insertar = true;
-        boolean control = true;
-        Iterator<Clientes> it = cliente.iterator();
-        while (it.hasNext()) {
-            Clientes i = (Clientes) it.next();
-            if (i.cc == cc) {
-                insertar = false;
-            }
-        }*/
-        boolean insertar = true;
-        Connection link = null;
-        Conexion con = new Conexion();
-        String SQL = null;
-        ResultSet res = null;
-        SQL = "SELECT cc FROM tblClientes WHERE cc = '" + cc + "'";
+        boolean insertar = false;
         try {
-            link = con.conectar();
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            String SQL = "SELECT documento FROM tblClientes WHERE documento = ?";
             PreparedStatement pSQL = link.prepareStatement(SQL);
-            res = pSQL.executeQuery();
-            while (res.next()) {
-                String cc_tbl = res.getString("cc");
-                if (cc == cc_tbl) {
-                    insertar = false;
-                }
+            pSQL.setString(1, cc);
+            ResultSet res = pSQL.executeQuery();
+            if (!res.next()) {
+                insertar = true;
             }
             link.close();
+            pSQL.close();
+            res.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error validando existencia\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error validando existencia\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return (insertar);
     }
@@ -58,13 +47,13 @@ public class ClientePref {
         Conexion con = new Conexion();
         String SQL = null;
         int res = 0;
-        int hospedajes = 0;
+        //int hospedajes = 0;
         //Creo el objeto que voy a guardar en el ArrayList llamado cliente.
         /*Clientes cl = new Clientes(tipo, cc, nombre, telefono, mail, hospedajes);
         cliente.add(cl);*/
         //Líneas SQL para insertar datos
-        SQL = "INSERT INTO tblClientes(idClientes, nombre, tipo, documento, telefono, email, hospedaje)"
-                + "VALUES (default,?,?,?,?,?,?)";
+        SQL = "INSERT INTO tblClientes(idCliente, nombre, tipo, documento, telefono, email, hospedaje)"
+                + "VALUES (DEFAULT,?,?,?,?,?,0)";
         //Inserción en la base de datos en la tabla tblClientes
         try {
             link = con.conectar();
@@ -74,10 +63,11 @@ public class ClientePref {
             pSQL.setString(3, cc);
             pSQL.setInt(4, telefono);
             pSQL.setString(5, mail);
-            pSQL.setInt(6, hospedajes);
+            //pSQL.setInt(6, hospedajes);
 
             res = pSQL.executeUpdate();
             pSQL.close();
+            //Después de crearlo se pregunta si quiere crear otro y devuelve a la pantalla la opción.
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al intentar almacenar el cliente:\n"
@@ -93,7 +83,6 @@ public class ClientePref {
                         + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE);
             }
         }
-        //Después de crearlo se pregunta si quiere crear otro y devuelve a la pantalla la opción.
         int opc = JOptionPane.showConfirmDialog(null, "Cliente creado exitosamente\n¿Desea crear otro cliente?", "CONFIRMACIÓN", 0, 1);
         return (opc);
     }
@@ -140,18 +129,32 @@ public class ClientePref {
         }*/
         Connection link = null;
         Conexion con = new Conexion();
-        String SQL = "SELECT nombre,tipo,documento,telefono,email, hospedaje FROM tblClientes";
+        String SQL = "SELECT nombre,\n"
+                + "CASE WHEN tipo = 1 THEN \"Cédula de ciudadanía\"\n"
+                + "     WHEN tipo = 2 THEN \"Cédula extranjería\"\n"
+                + "     WHEN tipo = 3 THEN \"Pasaporte\" END as tipo,documento,telefono,email, hospedaje FROM tblclientes";
         ResultSet res = null;
+        String dato = null;
         try {
             link = con.conectar();
-            PreparedStatement pSQL = link.prepareStatement(SQL);
-            res = pSQL.executeQuery();
+            //PreparedStatement pSQL = link.prepareStatement(SQL);
+            Statement s = link.createStatement();
+            res = s.executeQuery(SQL);
+            if (res.getRow() == 0) {
+                System.out.println("Está vacío");
+            } else {
+                System.out.println("Tiene datos");
+            }
             ModeloTabla mt = new ModeloTabla();
             modelo = mt.generarModelo(res);
+            res.close();
             link.close();
-        } catch (SQLException e) { 
-            JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de clientes\n" + e,"ALERTA", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de clientes\n" + e, "ALERTA", JOptionPane.ERROR_MESSAGE);
         }
+        System.out.println("Dato CP Nuevo " + dato);
+        System.out.println("Modelo ClientePref " + modelo);
+        System.out.println("ResultSet CP " + res);
         return (modelo);
     }
 
