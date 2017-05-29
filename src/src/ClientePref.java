@@ -148,6 +148,7 @@ public class ClientePref {
             res = pSQL.executeQuery();
             ModeloTabla mt = new ModeloTabla();
             modelo = mt.generarModelo(res);
+            link.close();
         } catch (SQLException e) { 
             JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de clientes\n" + e,"ALERTA", JOptionPane.ERROR_MESSAGE);
         }

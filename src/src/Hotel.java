@@ -85,7 +85,7 @@ public class Hotel {
         DefaultTableModel modelo = null;
         Connection link = null;
         Conexion con = new Conexion();
-        String SQL = "SELECT num_habitacion,capacidad, tipo_habitacion, estado, precio_noche FROM tblHabitaciones";
+        String SQL = "SELECT num_habitacion,capacidad, tipo_habitacion, CASE WHEN estado = 1 THEN 'Ocupada' ELSE 'Disponible' END as estado, precio_noche FROM tblHabitaciones";
         ResultSet res = null;
         try {
             link = con.conectar();
@@ -93,6 +93,7 @@ public class Hotel {
             res = pSQL.executeQuery();
             ModeloTabla mt = new ModeloTabla();
             modelo = mt.generarModelo(res);
+            link.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de habitaciones\n" + e,"ALERTA", JOptionPane.ERROR_MESSAGE);
         }
@@ -100,7 +101,7 @@ public class Hotel {
         ph.setVisible(true);
     }
 
-    public String mostrarEstado(int pos) {
+    /*public String mostrarEstado(int pos) {
         String estado = "";
         if (rooms.get(pos).estado == true) {
             estado = "Disponible";
@@ -108,7 +109,7 @@ public class Hotel {
             estado = "Ocupada";
         }
         return (estado);
-    }
+    }*/
 
     /*System.out.println("Número\tTipo\t\tCapacidad\tPrecioNoche\tEstado");
         for (int i = 0; i < rooms.size(); i++) {
