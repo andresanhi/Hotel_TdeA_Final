@@ -443,7 +443,7 @@ public class P_Clientes extends javax.swing.JFrame {
     public void buscarClientes() {
         DefaultTableModel modelo = new DefaultTableModel();
         ClientePref cp = new ClientePref();
-        String cc = txt_cc.getText();
+        String cc = txt_buscar.getText();
         modelo = cp.buscarCliente(cc);
         gridClientes.setModel(modelo);
         gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);

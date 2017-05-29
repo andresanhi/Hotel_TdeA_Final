@@ -122,6 +122,7 @@ public class ClientePref {
 
             res.close();
             link.close();
+            pSQL.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de clientes\n" + e, "ALERTA", JOptionPane.ERROR_MESSAGE);
         }
@@ -142,10 +143,13 @@ public class ClientePref {
             ResultSet rs = pSQL.executeQuery();
             ModeloTabla mt = new ModeloTabla();
             modelo = mt.generarModelo(rs);
-            /*if (!rs.next()) {
-                JOptionPane.showConfirmDialog(null, "No se encontró ningún cliente con el documento: " + cc, "ALERTA", JOptionPane.WARNING_MESSAGE);
+            /*if (rs.next()) {
+                ModeloTabla mt = new ModeloTabla();
+                modelo = mt.generarModelo(rs);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con el documento: " + cc, "ALERTA", JOptionPane.ERROR_MESSAGE);
             }*/
-            
+
             link.close();
             rs.close();
             pSQL.close();
