@@ -81,13 +81,31 @@ public class ClientePref {
         return (opc);
     }
 
-    public double generarDescuento(String tipo, double subtotal, int cc) {
+    public double generarDescuento(String tipo, double subtotal, String cc) {
         double dctoFinal = 0;
         double dctoSuite = 0.04, dcto1 = 0;
         double dctoEstandar = 0.025, dcto2 = 0;
         double dctoCamaExtra = 0.10, dcto3 = 0;
         int veces;
 
+        try {
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            String SQL = "SELECT documento, hospedaje FROM tblClientes WHERE documento = ?";
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            pSQL.setString(1, cc);
+            ResultSet rs = pSQL.executeQuery();
+            if(rs.next()){
+                veces = Integer.parseInt(rs.getString("hospedaje"));
+            }
+            link.close();
+            pSQL.close();
+            rs.close();
+        } catch (Exception e) {
+        }
+        
+        
+        
         if (cliente.contains(cc) == true) {
             veces = cliente.get(cliente.indexOf(cc)).hospedajes;
 
@@ -159,15 +177,4 @@ public class ClientePref {
         return (modelo);
     }
 
-    public String validarDocumento(int pos) {
-        String tipoDoc = "";
-        if (cliente.get(pos).tipo == 1) {
-            tipoDoc = "Cédula Ciudadanía";
-        } else if (cliente.get(pos).tipo == 2) {
-            tipoDoc = "Cédula Extranjería";
-        } else if (cliente.get(pos).tipo == 3) {
-            tipoDoc = "Pasaporte";
-        }
-        return (tipoDoc);
-    }
 }

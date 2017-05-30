@@ -1,6 +1,10 @@
 package src;
 
 import Pantallas.P_Ingreso;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import src.Reservas;
 import java.util.*;
 import javax.swing.JOptionPane;
@@ -11,53 +15,47 @@ public class Reserva {
     private static ArrayList<Reservas> reservas = new ArrayList<Reservas>();
     Scanner sc = new Scanner(System.in);
 
-    public void generarReserva() {
-
-        int numreserva = 0, ccn, telefonon, opci = 0, numHabitacion = 1;
-        int tipohabitacion = 0;
-        String fechaingreso = "";
-        String nombren = "";
-        int cantpersonas = 0;
-        int cantnoches = 0;
-        boolean creando = true;
-        Hotel hl = new Hotel();
-
-        do {
-            System.out.println("Ingrese el nombre completo del cliente: ");
-            nombren = sc.nextLine();
-            System.out.println("Ingrese el número de documento del cliente: ");
-            ccn = sc.nextInt();
-            System.out.println("Ingrese el teléfono del cliente: ");
-            telefonon = sc.nextInt();
-            System.out.println("Que tipo de habitación desea: ");
-            Hotel hb = new Hotel();
-            hb.mostrarHabitaciones();
-            tipohabitacion = sc.nextInt();
-            hb.validarDisponibilidad(tipohabitacion);
-            /*if (hb.rooms) {
-
-            } else {
-
+    public int generarReserva(int esreserva,int tipo, String documento, String nombre, int tel, int numAcom, String fingreso, String fsalida, String tipohab, double precionoche, int noches) {
+        int NumRes = 0;
+        try {
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            String SQL = "INSERT INTO tblreservas (idReservas, cliente, tipo, documento, telefono, num_acompanantes,fecha_ingreso,fecha_salida,noches,tipo_habitacion, precioXnoche,es_reserva)"
+                         +"VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            pSQL.setString(1, nombre);
+            pSQL.setInt(2,tipo);
+            pSQL.setString(3, documento);
+            pSQL.setInt(4, tel);
+            pSQL.setInt(5, numAcom);
+            pSQL.setString(6, fingreso);
+            pSQL.setString(7, fsalida);            
+            pSQL.setInt(8, noches);
+            pSQL.setString(9, tipohab);
+            pSQL.setDouble(10,precionoche);
+            pSQL.setInt(11, esreserva);
+            
+            pSQL.executeUpdate();
+            
+            /*try {
+                String SQL2 = "SELECT MAX(idReservas) as IdReserva FROM tblReservas";
+                PreparedStatement pSQL2 = link.prepareStatement(SQL2);
+                ResultSet rs = pSQL2.executeQuery();
+                if(rs.next()){
+                    NumRes = Integer.valueOf(rs.getString("IdReserva"));
+                }
+                pSQL2.close();
+                rs.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error recuperando número de reserva" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             }*/
-
-            Reservas cli = new Reservas(nombren, ccn, telefonon, cantpersonas, cantnoches, fechaingreso, numHabitacion, numreserva);
-            reservas.add(cli);
-            System.out.println("Presione 1 para crear otro cliente y 2 para regresar al menú principal");
-            opci = sc.nextInt();
-            switch (opci) {
-                case 1:
-                    creando = true;
-                    break;
-                case 2:
-                    creando = false;
-                    hl.generarMenu();
-                    break;
-                default:
-                    System.out.println("Selección inválida");
-                    hl.generarMenu();
-                    break;
-            }
-        } while (creando == true);
+            System.out.println("Clente insertado");
+            link.close();
+            pSQL.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error guardando la reserva\n" + e, "ERRROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return(NumRes);
     }
 
     public static ArrayList<Reservas> getReservas() {
@@ -106,12 +104,12 @@ public class Reserva {
         }
         return (modelo);
     }
-    
-    public void eliminarReserva(int codRes){
-        
+
+    public void eliminarReserva(int codRes) {
+
     }
-    
-    public void activarReserva(int codRes){
-        
+
+    public void activarReserva(int codRes) {
+
     }
 }

@@ -5,9 +5,11 @@
  */
 package Pantallas;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import src.Fechas;
+import src.Reserva;
 
 /**
  *
@@ -18,7 +20,7 @@ public class P_Reservas extends javax.swing.JFrame {
     /**
      * Creates new form P_Reservas
      */
-    public P_Reservas() {
+    public P_Reservas(int esreserva) {
         initComponents();
         setLocationRelativeTo(null);
         setFechas();
@@ -58,7 +60,7 @@ public class P_Reservas extends javax.swing.JFrame {
         txt_Precio = new javax.swing.JTextField();
         btn_Guardar = new javax.swing.JButton();
         btn_Cancelar = new javax.swing.JButton();
-        txt_TipoHab1 = new javax.swing.JComboBox<>();
+        txt_precios = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -153,7 +155,7 @@ public class P_Reservas extends javax.swing.JFrame {
         cc7.setText("Tipo Habitación: *");
 
         txt_TipoHab.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txt_TipoHab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Estandar", "Suite" }));
+        txt_TipoHab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Estándar", "Suite" }));
 
         cc8.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         cc8.setForeground(new java.awt.Color(255, 204, 0));
@@ -197,7 +199,7 @@ public class P_Reservas extends javax.swing.JFrame {
             }
         });
 
-        txt_TipoHab1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txt_precios.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         jButton1.setText("jButton1");
 
@@ -249,7 +251,7 @@ public class P_Reservas extends javax.swing.JFrame {
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(txt_Precio, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(35, 35, 35)
-                                                .addComponent(txt_TipoHab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(txt_precios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(103, 103, 103)
                                         .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -295,7 +297,7 @@ public class P_Reservas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_TipoHab)
                             .addComponent(txt_Precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_TipoHab1)
+                            .addComponent(txt_precios)
                             .addComponent(jButton1))
                         .addGap(169, 169, 169)
                         .addComponent(btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -342,10 +344,20 @@ public class P_Reservas extends javax.swing.JFrame {
     private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
         Fechas f = new Fechas();
         int dif = f.diferenciaEnDias(fSalida.getCalendar(), fIngreso.getCalendar());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String f_Ingreso = sdf.format(fIngreso.getDate());
+        String f_Salida = sdf.format(fSalida.getDate());
+        System.out.println(f_Ingreso);
+        System.out.println(f_Salida);
         if(dif <0){
             JOptionPane.showMessageDialog(null, "La fecha de salida no puede ser inferior a la fecha de ingreso, por favor valide","ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            //aquí el código para guardar.
+            Reserva r = new Reserva ();
+            int reserva = r.generarReserva(1, txt_Tipo.getSelectedIndex(), txt_Doc.getText(), txt_Nombre.getText(), Integer.parseInt(txt_Tel.getText()), txt_acomp.getSelectedIndex(), f_Ingreso, f_Salida, (String)txt_TipoHab.getSelectedItem(),Double.parseDouble(txt_Precio.getText()), dif);
+                        
+            if(reserva != 0){
+                JOptionPane.showMessageDialog(null,"Su número de reserva es:" + reserva, "ALERTA", JOptionPane.OK_OPTION);
+            }
         }
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
@@ -385,7 +397,7 @@ public class P_Reservas extends javax.swing.JFrame {
     private javax.swing.JTextField txt_Tel;
     private javax.swing.JComboBox<String> txt_Tipo;
     private javax.swing.JComboBox<String> txt_TipoHab;
-    private javax.swing.JComboBox<String> txt_TipoHab1;
     private javax.swing.JComboBox<String> txt_acomp;
+    private javax.swing.JComboBox<String> txt_precios;
     // End of variables declaration//GEN-END:variables
 }

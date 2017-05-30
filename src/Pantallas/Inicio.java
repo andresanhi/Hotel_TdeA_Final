@@ -14,8 +14,6 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         setLocationRelativeTo(null);
-        Hotel h = new Hotel ();
-        h.generarHabitaciones();
     }
 
     /**

@@ -316,14 +316,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_ReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReservarActionPerformed
-        P_Reservas pr = new P_Reservas();
+        P_Reservas pr = new P_Reservas(1);
         pr.setVisible(true);
     }//GEN-LAST:event_btn_ReservarActionPerformed
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         int opc = JOptionPane.showConfirmDialog(null, "¿Tiene número de reserva?", "ALERTA", 0, 1);
         if (opc == 1) {
-            P_Reservas pr = new P_Reservas();
+            P_Reservas pr = new P_Reservas(0);
             pr.setVisible(true);
         } else {
             P_Ingreso pi = new P_Ingreso();

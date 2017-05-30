@@ -1,6 +1,7 @@
 package src;
 
 import Pantallas.P_Habitaciones;
+import com.sun.xml.internal.ws.api.addressing.WSEndpointReference;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,7 +54,7 @@ public class Hotel {
         }
     }
 
-    public void generarHabitaciones() {
+    /*public void generarHabitaciones() {
         //ArrayList<Habitaciones> rooms = new ArrayList<Habitaciones>();
         Habitaciones ha1 = new Habitaciones(1, "Suite   ", 2, 215000, true);
         rooms.add(ha1);
@@ -68,37 +69,47 @@ public class Hotel {
         rooms.add(ha5);
         Habitaciones ha6 = new Habitaciones(6, "Estándar", 4, 230000, true);
         rooms.add(ha6);
-    }
+    }*/
 
     public void mostrarHabitaciones() {
-        /*String estado;
-        String titulos[] = {"N° Habitación", "Tipo", "Capacidad", "PrecioNoche", "Estado"};
-        String habitaciones[][] = new String[rooms.size()][5];
-        for (int i = 0; i < rooms.size(); i++) {
-            habitaciones[i][0] = String.valueOf(rooms.get(i).numHabitacion);
-            habitaciones[i][1] = rooms.get(i).tipoHabitacion;
-            habitaciones[i][2] = String.valueOf(rooms.get(i).Capacidad);
-            habitaciones[i][3] = String.valueOf(rooms.get(i).precioXNoche);
-            estado = mostrarEstado(i);
-            habitaciones[i][4] = estado;
-        }*/
-        DefaultTableModel modelo = null;
-        Connection link = null;
-        Conexion con = new Conexion();
-        String SQL = "SELECT num_habitacion,capacidad, tipo_habitacion, CASE WHEN estado = 1 THEN 'Ocupada' ELSE 'Disponible' END as estado, precio_noche FROM tblHabitaciones";
-        ResultSet res = null;
+        DefaultTableModel modelo = new DefaultTableModel();
         try {
-            link = con.conectar();
+            String SQL = "SELECT num_habitacion,capacidad, tipo_habitacion, CASE WHEN estado = 1 THEN 'Ocupada' ELSE 'Disponible' END as estado, precio_noche FROM tblHabitaciones";
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
             PreparedStatement pSQL = link.prepareStatement(SQL);
-            res = pSQL.executeQuery();
+            ResultSet rs = pSQL.executeQuery();
             ModeloTabla mt = new ModeloTabla();
-            modelo = mt.generarModelo(res);
+            modelo = mt.generarModelo(rs);
+
             link.close();
+            pSQL.close();
+            rs.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de habitaciones\n" + e,"ALERTA", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al momento de cargar la grid de habitaciones\n" + e, "ALERTA", JOptionPane.ERROR_MESSAGE);
         }
         P_Habitaciones ph = new P_Habitaciones(modelo);
         ph.setVisible(true);
+    }
+
+    public Object buscarDisponiblidad() {
+        Object[] precios = null;
+        try {
+            String SQL = "";
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            ResultSet rs = pSQL.executeQuery();
+            int ta = rs.getMetaData().getColumnCount();
+            while (rs.next()) {
+                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+                    precios[i] = rs.getString(i + 1);
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        return (precios);
     }
 
     /*public String mostrarEstado(int pos) {
@@ -111,7 +122,7 @@ public class Hotel {
         return (estado);
     }*/
 
-    /*System.out.println("Número\tTipo\t\tCapacidad\tPrecioNoche\tEstado");
+ /*System.out.println("Número\tTipo\t\tCapacidad\tPrecioNoche\tEstado");
         for (int i = 0; i < rooms.size(); i++) {
             if (rooms.get(i).estado == true) {
                 estado = "Disponible";
@@ -125,13 +136,7 @@ public class Hotel {
         Clientes c = it.next();
             System.out.println(c.nombre,c.cc);
         }*/
-    public boolean validarDisponibilidad(int habitacion) {
-        boolean estado;
-        estado = rooms.get(habitacion).estado;
-        return estado;
-    }
-
-    /*public void actualizarEstado(Date checkin) {
+ /*public void actualizarEstado(Date checkin) {
         int ha;
         boolean validar = true;
         Reserva r = new Reserva();
