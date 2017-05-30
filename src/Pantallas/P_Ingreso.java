@@ -44,6 +44,7 @@ public class P_Ingreso extends javax.swing.JFrame {
         btn_Buscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         gridReservas = new javax.swing.JTable();
+        btn_Limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -101,6 +102,24 @@ public class P_Ingreso extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(gridReservas);
 
+        btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar.png"))); // NOI18N
+        btn_Limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Limpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btn_LimpiarMouseMoved(evt);
+            }
+        });
+        btn_Limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_LimpiarMouseExited(evt);
+            }
+        });
+        btn_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -114,7 +133,9 @@ public class P_Ingreso extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txt_codReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60)
-                        .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -125,8 +146,9 @@ public class P_Ingreso extends javax.swing.JFrame {
                     .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_codReserva)))
-                .addGap(49, 49, 49)
+                        .addComponent(txt_codReserva))
+                    .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(129, Short.MAX_VALUE))
         );
@@ -166,6 +188,19 @@ public class P_Ingreso extends javax.swing.JFrame {
 
     }//GEN-LAST:event_gridReservasMouseClicked
 
+    private void btn_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimpiarMouseExited
+        btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar.png")));
+    }//GEN-LAST:event_btn_LimpiarMouseExited
+
+    private void btn_LimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimpiarMouseMoved
+        btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar2.png")));
+    }//GEN-LAST:event_btn_LimpiarMouseMoved
+
+    private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
+        txt_codReserva.setText(null);
+        cargarReservas();
+    }//GEN-LAST:event_btn_LimpiarActionPerformed
+
     private void Item1ActionPerformed(java.awt.event.ActionEvent evt){
         System.out.println("Clic en Activar");
     }   
@@ -184,6 +219,7 @@ public class P_Ingreso extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Buscar;
+    private javax.swing.JButton btn_Limpiar;
     private javax.swing.JTable gridReservas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
