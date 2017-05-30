@@ -9,6 +9,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import src.Reserva;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 //@author Jhony_Angulo
@@ -25,7 +26,7 @@ public class P_Ingreso extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cargarReservas();
-        popup.add(Item1,Item2);
+        popup.add(Item1, Item2);
         gridReservas.setComponentPopupMenu(popup);
     }
 
@@ -176,12 +177,18 @@ public class P_Ingreso extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_BuscarMouseExited
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
-        Reserva r = new Reserva();
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo = r.buscarReserva(Integer.parseInt(txt_codReserva.getText()));
-        gridReservas.setModel(modelo);
-        gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        if (txt_codReserva.getText().length()==0) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un valor para buscar", "ALERTA", 2);
+            txt_codReserva.requestFocus();
+        } else {
+            Reserva r = new Reserva();
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo = r.buscarReserva(Integer.parseInt(txt_codReserva.getText()));
+            gridReservas.setModel(modelo);
+            gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        }
+
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     private void gridReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridReservasMouseClicked
@@ -201,10 +208,10 @@ public class P_Ingreso extends javax.swing.JFrame {
         cargarReservas();
     }//GEN-LAST:event_btn_LimpiarActionPerformed
 
-    private void Item1ActionPerformed(java.awt.event.ActionEvent evt){
+    private void Item1ActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("Clic en Activar");
-    }   
-    
+    }
+
     public void cargarReservas() {
         DefaultTableModel modelo = new DefaultTableModel();
         Reserva r = new Reserva();
