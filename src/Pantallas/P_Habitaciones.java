@@ -25,7 +25,7 @@ public class P_Habitaciones extends javax.swing.JFrame {
         JMenuItem item = new JMenuItem ("Reservar");
         popup.add(item);
         gridRooms.setComponentPopupMenu(popup);
-        gridRooms.MouseListener(new TableMouseListener(gridRooms));
+        gridRooms.addMouseListener(new TableMouseListener(gridRooms));
     }
 
     public void crearTabla(DefaultTableModel modelo) {
@@ -57,6 +57,7 @@ public class P_Habitaciones extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
