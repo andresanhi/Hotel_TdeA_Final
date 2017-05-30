@@ -49,7 +49,7 @@ public class Reserva {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error recuperando número de reserva" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             }*/
-            System.out.println("Clente insertado");
+            System.out.println("Reserva insertado");
             link.close();
             pSQL.close();
         } catch (Exception e) {
