@@ -6,9 +6,13 @@
 package Pantallas;
 // @author Jhony_Angulo
 
+import java.awt.Component;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import src.TableMouseListener;
 
@@ -22,7 +26,7 @@ public class P_Habitaciones extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         crearTabla(modelo);
         JPopupMenu popup = new JPopupMenu();
-        JMenuItem item = new JMenuItem ("Reservar");
+        JMenuItem item = new JMenuItem("Reservar");
         popup.add(item);
         gridRooms.setComponentPopupMenu(popup);
         gridRooms.addMouseListener(new TableMouseListener(gridRooms));
@@ -37,6 +41,8 @@ public class P_Habitaciones extends javax.swing.JFrame {
                 return canEdit[columnIndex];
             }
         });*/
+        modelo.addColumn("Seleccionar", new Object [] {false});
+
         gridRooms.setModel(modelo);
         gridRooms.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         gridRooms.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
@@ -64,20 +70,27 @@ public class P_Habitaciones extends javax.swing.JFrame {
         gridRooms.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         gridRooms.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -116,6 +129,9 @@ public class P_Habitaciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ReservarActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("Prueba exitosa");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable gridRooms;

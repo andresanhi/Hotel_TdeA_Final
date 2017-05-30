@@ -20,8 +20,8 @@ public class Reserva {
         try {
             Conexion con = new Conexion();
             Connection link = con.conectar();
-            String SQL = "INSERT INTO tblreservas (idReservas, cliente, tipo, documento, telefono, num_acompanantes,fecha_ingreso,fecha_salida,noches,tipo_habitacion, precioXnoche,es_reserva)"
-                         +"VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,?)";
+            String SQL = "INSERT INTO tblreservas (idReservas, cliente, tipo, documento, telefono, num_acompanantes,fecha_ingreso,fecha_salida,noches,tipo_habitacion, precioXnoche,es_reserva, numFactura)"
+                         +"VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,?,NULL)";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, nombre);
             pSQL.setInt(2,tipo);
@@ -37,7 +37,7 @@ public class Reserva {
             
             pSQL.executeUpdate();
             
-            /*try {
+            try {
                 String SQL2 = "SELECT MAX(idReservas) as IdReserva FROM tblReservas";
                 PreparedStatement pSQL2 = link.prepareStatement(SQL2);
                 ResultSet rs = pSQL2.executeQuery();
@@ -48,7 +48,7 @@ public class Reserva {
                 rs.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error recuperando número de reserva" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-            }*/
+            }
             System.out.println("Reserva insertado");
             link.close();
             pSQL.close();

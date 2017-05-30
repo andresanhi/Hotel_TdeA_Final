@@ -202,6 +202,11 @@ public class P_Reservas extends javax.swing.JFrame {
         txt_precios.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -223,7 +228,7 @@ public class P_Reservas extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cc1)
                                     .addComponent(txt_Doc, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cc4)
@@ -251,9 +256,9 @@ public class P_Reservas extends javax.swing.JFrame {
                                 .addGap(35, 35, 35)
                                 .addComponent(txt_precios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
+                        .addGap(95, 95, 95)
                         .addComponent(btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94)
+                        .addGap(104, 104, 104)
                         .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -296,7 +301,7 @@ public class P_Reservas extends javax.swing.JFrame {
                             .addComponent(txt_Precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_precios)
                             .addComponent(jButton1))
-                        .addGap(169, 169, 169)
+                        .addGap(195, 195, 195)
                         .addComponent(btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -314,9 +319,7 @@ public class P_Reservas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -349,8 +352,6 @@ public class P_Reservas extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String f_Ingreso = sdf.format(fIngreso.getDate());
         String f_Salida = sdf.format(fSalida.getDate());
-        System.out.println(f_Ingreso);
-        System.out.println(f_Salida);
         if(dif <0){
             JOptionPane.showMessageDialog(null, "La fecha de salida no puede ser inferior a la fecha de ingreso, por favor valide","ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -363,16 +364,17 @@ public class P_Reservas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+  
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void setFechas(){
         Calendar fecha = Calendar.getInstance();
         fIngreso.setCalendar(fecha);
         fecha.add(Calendar.DAY_OF_MONTH, 1);
         fSalida.setCalendar(fecha);
     }
-    
-    public int esReserva(int res){
-        return(res);
-    }
+
     /**
      * @param args the command line arguments
      */
