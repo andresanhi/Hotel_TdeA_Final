@@ -82,6 +82,11 @@ public class Menu extends javax.swing.JFrame {
                 btn_FacturarMouseExited(evt);
             }
         });
+        btn_Facturar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_FacturarActionPerformed(evt);
+            }
+        });
 
         btn_Ingresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Ingresar.png"))); // NOI18N
         btn_Ingresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -332,6 +337,11 @@ public class Menu extends javax.swing.JFrame {
             pi.setVisible(true);
         }
     }//GEN-LAST:event_btn_IngresarActionPerformed
+
+    private void btn_FacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FacturarActionPerformed
+        P_Facturar pf = new P_Facturar();
+        pf.setVisible(true);
+    }//GEN-LAST:event_btn_FacturarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
