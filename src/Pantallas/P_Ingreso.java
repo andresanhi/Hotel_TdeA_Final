@@ -26,7 +26,8 @@ public class P_Ingreso extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cargarReservas();
-        popup.add(Item1, Item2);
+        popup.add(Item1);
+        popup.add(Item2);
         gridReservas.setComponentPopupMenu(popup);
     }
 
@@ -211,8 +212,8 @@ public class P_Ingreso extends javax.swing.JFrame {
     private void Item1ActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("Clic en Activar");
     }
-
-    public void cargarReservas() {
+    
+     public void cargarReservas() {
         DefaultTableModel modelo = new DefaultTableModel();
         Reserva r = new Reserva();
         modelo = r.mostrarReservas();
