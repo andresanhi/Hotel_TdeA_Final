@@ -32,8 +32,8 @@ public class Hotel {
                 //r.GenerarReserva();
                 break;
             case 2:
-                Ingreso c = new Ingreso();
-                c.generarIngreso();
+                //Ingreso c = new Ingreso();
+                //c.generarIngreso();
                 break;
             case 3:
                 //Factura f = new Factura();

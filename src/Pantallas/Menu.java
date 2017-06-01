@@ -332,7 +332,7 @@ public class Menu extends javax.swing.JFrame {
             P_Reservas pr = new P_Reservas();
             //pr.esReserva(0);
             pr.setVisible(true);
-        } else {
+        } else if (opc==0) {
             P_Ingreso pi = new P_Ingreso();
             pi.setVisible(true);
         }
