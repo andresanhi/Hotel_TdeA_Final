@@ -136,6 +136,7 @@ public class P_Ingreso extends javax.swing.JFrame {
         });
 
         btn_Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Eliminar.png"))); // NOI18N
+        btn_Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_Eliminar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 btn_EliminarMouseMoved(evt);
@@ -252,7 +253,8 @@ public class P_Ingreso extends javax.swing.JFrame {
         int fila = gridReservas.getSelectedRow();
         if(fila!=-1){
         Reserva r = new Reserva();
-        r.activarReserva(fila);
+        int res = (int)gridReservas.getValueAt(fila, 0);
+        r.activarReserva(res);
         cargarReservas();
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una reserva para poder activarla", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -280,7 +282,8 @@ public class P_Ingreso extends javax.swing.JFrame {
         int fila = gridReservas.getSelectedRow();
         if(fila!=-1){
         Reserva r = new Reserva();
-        r.eliminarReserva(fila);
+        int res = (int)gridReservas.getValueAt(fila, 0);
+        r.eliminarReserva(res);
         cargarReservas();
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una reserva para poder eliminarla", "ERROR", JOptionPane.ERROR_MESSAGE);

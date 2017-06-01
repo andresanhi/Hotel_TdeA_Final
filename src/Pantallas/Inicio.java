@@ -2,7 +2,6 @@ package Pantallas;
 
 // @author Jhony_Angulo
 import src.Hotel;
-import src.Pruea;
 import java.util.Calendar;
 import java.util.Date;
 

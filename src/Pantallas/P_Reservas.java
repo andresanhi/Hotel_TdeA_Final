@@ -339,7 +339,7 @@ public class P_Reservas extends javax.swing.JFrame {
 
     private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
         Fechas f = new Fechas();
-        int fl = gridRooms.getSelectedRow();
+        int fl = gridRooms.getSelectedRow()+1;
         int numHab = (int) gridRooms.getValueAt(fl, 0);
         String tipoHab = (String) gridRooms.getValueAt(fl, 2);
         String estado = (String) gridRooms.getValueAt(fl, 3);
