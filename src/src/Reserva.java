@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Reserva {
 
-    public int generarReserva(int esreserva, int tipo, String documento, String nombre, int tel, int numAcom, String fingreso, String fsalida, String tipohab,int noches) {
+    public int generarReserva(int esreserva, int tipo, String documento, String nombre, int tel, int numAcom, String fingreso, String fsalida, String tipohab, int noches) {
         int NumRes = 0;
         try {
             Conexion con = new Conexion();
@@ -94,15 +94,22 @@ public class Reserva {
         }
         return (modelo);
     }
-    
-    public DefaultTableModel buscarReservaFV (String doc){
+
+    public DefaultTableModel buscarReservaFV(String doc) {
         DefaultTableModel modelo = new DefaultTableModel();
         try {
             Conexion con = new Conexion();
             Connection link = con.conectar();
-            String SQL = "SELECT r.numHabitacion, h.tipo_habitacion, r.noches,r.num_acompanantes, h.precio_noche, (r.noches*h.precio_noche) as Total\n"
-                    +"FROM tblReservas r INNER JOIN tblhabitaciones h ON r.numHabitacion = h.num_habitacion\n "
-                    +"WHERE r.documento = ? AND numFactura IS NULL";
+            String SQL = "SELECT r.numHabitacion, h.tipo_habitacion, r.noches,r.num_acompanantes, h.precio_noche,\n"
+                    + "       CASE WHEN c.hospedaje>1 AND h.tipo_habitacion = \"Suite\" THEN (r.noches*h.precio_noche) * 0.04\n"
+                    + "            WHEN c.hospedaje>1 AND h.tipo_habitacion = \"Estándar\" THEN (r.noches*h.precio_noche)* 0.025\n"
+                    + "            ELSE 0\n"
+                    + "            END as Descuento\n"
+                    + "            ,(r.noches * h.precio_noche)  as Subtotal\n"
+                    + "            FROM tblReservas r \n"
+                    + "            INNER JOIN tblhabitaciones h ON r.numHabitacion = h.num_habitacion\n"
+                    + "            INNER JOIN tblclientes c ON r.documento = c.documento\n"
+                    + "            WHERE r.documento = ? AND numFactura IS NULL";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, doc);
             ResultSet rs = pSQL.executeQuery();
@@ -118,19 +125,19 @@ public class Reserva {
         }
         return (modelo);
     }
-    
-    public String buscarCliente(String doc){
+
+    public String buscarCliente(String doc) {
         String cliente = null;
         try {
             Conexion con = new Conexion();
             Connection link = con.conectar();
             String SQL = "SELECT cliente\n"
-                    +"FROM tblReservas\n"
-                    +"WHERE documento = ? ";
+                    + "FROM tblReservas\n"
+                    + "WHERE documento = ? ";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, doc);
             ResultSet rs = pSQL.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 cliente = rs.getString("cliente");
             }
 
@@ -141,7 +148,7 @@ public class Reserva {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error buscando el cliente " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        return(cliente);
+        return (cliente);
     }
 
     public void eliminarReserva(int codRes) {

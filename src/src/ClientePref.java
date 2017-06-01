@@ -16,9 +16,6 @@ import src.ClientePref;
 
 public class ClientePref {
 
-    private static ArrayList<Clientes> cliente = new ArrayList<Clientes>();
-    Scanner sc = new Scanner(System.in);
-
     public boolean validarExistencia(String cc) {
         boolean insertar = false;
         try {
@@ -86,7 +83,7 @@ public class ClientePref {
         double dctoSuite = 0.04, dcto1 = 0;
         double dctoEstandar = 0.025, dcto2 = 0;
         double dctoCamaExtra = 0.10, dcto3 = 0;
-        int veces;
+        int veces = 0;
 
         try {
             Conexion con = new Conexion();
@@ -95,7 +92,7 @@ public class ClientePref {
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, cc);
             ResultSet rs = pSQL.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 veces = Integer.parseInt(rs.getString("hospedaje"));
             }
             link.close();
@@ -103,22 +100,17 @@ public class ClientePref {
             rs.close();
         } catch (Exception e) {
         }
-        
-        
-        
-        if (cliente.contains(cc) == true) {
-            veces = cliente.get(cliente.indexOf(cc)).hospedajes;
 
-            if (veces > 1) {
-                if (tipo == "Suite") {
-                    dcto1 = subtotal * dctoSuite;
-                } else if (tipo == "Estándar") {
-                    dcto2 = subtotal * dctoEstandar;
-                } else {
-                    dcto3 = subtotal * dctoCamaExtra;
-                }
+        if (veces > 1) {
+            if (tipo == "Suite") {
+                dcto1 = subtotal * dctoSuite;
+            } else if (tipo == "Estándar") {
+                dcto2 = subtotal * dctoEstandar;
+            } else {
+                dcto3 = subtotal * dctoCamaExtra;
             }
         }
+
         dctoFinal = dcto1 + dcto2 + dcto3;
         return (dctoFinal);
     }
