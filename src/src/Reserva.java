@@ -110,11 +110,11 @@ public class Reserva {
                     + "            WHEN c.hospedaje>1 AND h.tipo_habitacion = \"Estándar\" THEN (r.noches*h.precio_noche)* 0.025\n"
                     + "            ELSE 0\n"
                     + "            END as Descuento\n"
-                    + "            ,(r.noches * h.precio_noche)  as Subtotal\n"
+                    + "            ,(r.noches * h.precio_noche)  as Subtotal,r.idreservas\n"
                     + "            FROM tblReservas r \n"
                     + "            INNER JOIN tblhabitaciones h ON r.numHabitacion = h.num_habitacion\n"
                     + "            INNER JOIN tblclientes c ON r.documento = c.documento\n"
-                    + "            WHERE r.documento = ? AND numFactura IS NULL AND estado = 1";
+                    + "            WHERE r.documento = ? AND numFactura IS NULL AND r.estado = 1";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, doc);
             ResultSet rs = pSQL.executeQuery();

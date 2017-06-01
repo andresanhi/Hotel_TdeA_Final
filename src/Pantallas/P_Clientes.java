@@ -374,14 +374,6 @@ public class P_Clientes extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Ya existe un cliente con el documento " + txt_cc.getText() + " por favor verifique", "ALERTA", 0);
             }
-
-            /*if (txt_mail.getText().length() != 0) {
-            if (txt_mail.getText().indexOf("@") == -1) {
-                ClientePref cf = new ClientePref();
-                cf.crearClientePref(txt_Nombre.getText(), txt_tipo.getSelectedIndex(), Integer.parseInt(txt_cc.getText()), Integer.parseInt(txt_tel.getText()), txt_mail.getText());
-            } else {
-                JOptionPane.showMessageDialog(null, "El campo Email no tiene una estructura adecuada, verifique", "ALERTA", 0);
-            }*/
         }
     }//GEN-LAST:event_btn_GuardarActionPerformed
 

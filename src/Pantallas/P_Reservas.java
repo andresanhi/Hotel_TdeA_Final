@@ -13,10 +13,7 @@ import src.Fechas;
 import src.Hotel;
 import src.Reserva;
 
-/**
- *
- * @author Jhony_Angulo
- */
+// @author Jhony_Angulo
 public class P_Reservas extends javax.swing.JFrame {
 
     /**
@@ -59,7 +56,6 @@ public class P_Reservas extends javax.swing.JFrame {
         fSalida = new com.toedter.calendar.JDateChooser();
         btn_Guardar = new javax.swing.JButton();
         btn_Cancelar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         gridRooms = new javax.swing.JTable();
 
@@ -143,6 +139,11 @@ public class P_Reservas extends javax.swing.JFrame {
         fIngreso.setBackground(new java.awt.Color(255, 255, 255));
         fIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         fIngreso.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        fIngreso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fIngresoFocusLost(evt);
+            }
+        });
 
         cc6.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         cc6.setForeground(new java.awt.Color(255, 204, 0));
@@ -150,6 +151,11 @@ public class P_Reservas extends javax.swing.JFrame {
 
         fSalida.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         fSalida.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        fSalida.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fSalidaFocusLost(evt);
+            }
+        });
 
         btn_Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Guardar.png"))); // NOI18N
         btn_Guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -184,13 +190,6 @@ public class P_Reservas extends javax.swing.JFrame {
         btn_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_CancelarActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -250,15 +249,11 @@ public class P_Reservas extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(124, 124, 124)
                                 .addComponent(btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(84, 84, 84)
+                                .addGap(69, 69, 69)
                                 .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jButton1)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -292,9 +287,7 @@ public class P_Reservas extends javax.swing.JFrame {
                     .addComponent(txt_acomp, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(37, 37, 37)
+                .addGap(78, 78, 78)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -338,44 +331,56 @@ public class P_Reservas extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
-        Fechas f = new Fechas();
-        int fl = gridRooms.getSelectedRow()+1;
-        int numHab = (int) gridRooms.getValueAt(fl, 0);
-        String tipoHab = (String) gridRooms.getValueAt(fl, 2);
-        String estado = (String) gridRooms.getValueAt(fl, 3);
-        if (estado.equals("Ocupada")) {
-            JOptionPane.showMessageDialog(null, "No se puede guardar la reserva, la habitación seleccionada está ocupada para esa fecha", "ALERTA", 2);
-        } else {
-            //Falta validar que los campos si estén debidamente diligenciados.
-            int dif = f.diferenciaEnDias(fSalida.getCalendar(), fIngreso.getCalendar());
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            String f_Ingreso = sdf.format(fIngreso.getDate());
-            String f_Salida = sdf.format(fSalida.getDate());
-
-            if (dif < 0) {
-                JOptionPane.showMessageDialog(null, "La fecha de salida no puede ser inferior a la fecha de ingreso, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
+        int fl = gridRooms.getSelectedRow();
+        if (fl != -1) {
+            if (txt_Doc.getText().length() == 0 || txt_Nombre.getText().length() == 0 || txt_Tel.getText().length() == 0 || txt_Tipo.getSelectedIndex() == 0 || txt_acomp.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
-                Reserva r = new Reserva();
-                int reserva = r.generarReserva(1, txt_Tipo.getSelectedIndex(), txt_Doc.getText(), txt_Nombre.getText(), Integer.parseInt(txt_Tel.getText()), txt_acomp.getSelectedIndex(), f_Ingreso, f_Salida, tipoHab, dif, numHab);
+                Fechas f = new Fechas();
+                int numHab = (int) gridRooms.getValueAt(fl, 0);
+                String tipoHab = (String) gridRooms.getValueAt(fl, 2);
+                String estado = (String) gridRooms.getValueAt(fl, 3);
+                int acomp = (int) gridRooms.getValueAt(fl, 1);
+                System.out.println(acomp);
+                System.out.println(txt_acomp.getSelectedIndex());
+                if (txt_acomp.getSelectedIndex()<=acomp) {
+                    if (estado.equals("Ocupada")) {
+                        JOptionPane.showMessageDialog(null, "No se puede guardar la reserva, la habitación seleccionada está ocupada para esa fecha\n por favor seleccione otra", "ALERTA", 2);
+                    } else {
+                        //Falta validar que los campos si estén debidamente diligenciados.
+                        int dif = f.diferenciaEnDias(fSalida.getCalendar(), fIngreso.getCalendar());
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        String f_Ingreso = sdf.format(fIngreso.getDate());
+                        String f_Salida = sdf.format(fSalida.getDate());
 
-                if (reserva != 0) {
-                    JOptionPane.showMessageDialog(null, "Su número de reserva es:" + reserva, "ALERTA", JOptionPane.OK_OPTION);
+                        if (dif < 0) {
+                            JOptionPane.showMessageDialog(null, "La fecha de salida no puede ser inferior a la fecha de ingreso, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            Reserva r = new Reserva();
+                            int reserva = r.generarReserva(1, txt_Tipo.getSelectedIndex(), txt_Doc.getText(), txt_Nombre.getText(), Integer.parseInt(txt_Tel.getText()), txt_acomp.getSelectedIndex(), f_Ingreso, f_Salida, tipoHab, dif, numHab);
+                            cargarTabla();
+
+                            if (reserva != 0) {
+                                JOptionPane.showMessageDialog(null, "Su número de reserva es:" + reserva, "ALERTA", JOptionPane.OK_OPTION);
+                            }
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "La cantidad de acompañantes no es permitida para esta habitación, debe seleccionar otra", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una habitación para guardar la reserva", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int fl = gridRooms.getSelectedRow();
-        int numHab = (int) gridRooms.getValueAt(fl, 0);
-        String tipoHab = (String) gridRooms.getValueAt(fl, 2);
-        String estado = (String) gridRooms.getValueAt(fl, 3);
-        System.out.println(estado);
-        if(estado.equals("Ocupada")){
-            System.out.println("Está ocupada");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void fSalidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fSalidaFocusLost
+        cargarTabla();
+    }//GEN-LAST:event_fSalidaFocusLost
+
+    private void fIngresoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fIngresoFocusLost
+        cargarTabla();
+    }//GEN-LAST:event_fIngresoFocusLost
 
     public void setFechas() {
         Calendar fecha = Calendar.getInstance();
@@ -409,7 +414,6 @@ public class P_Reservas extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser fIngreso;
     private com.toedter.calendar.JDateChooser fSalida;
     private javax.swing.JTable gridRooms;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
