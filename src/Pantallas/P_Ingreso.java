@@ -8,9 +8,7 @@ package Pantallas;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import src.Reserva;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.table.TableModel;
 
 //@author Jhony_Angulo
@@ -19,17 +17,11 @@ public class P_Ingreso extends javax.swing.JFrame {
     /**
      * Creates new form P_Ingreso
      */
-    JPopupMenu popup = new JPopupMenu();
-    JMenuItem Item1 = new JMenuItem("Activar");
-    JMenuItem Item2 = new JMenuItem("Eliminar");
 
     public P_Ingreso() {
         initComponents();
         setLocationRelativeTo(null);
         cargarReservas();
-        popup.add(Item1);
-        popup.add(Item2);
-        gridReservas.setComponentPopupMenu(popup);
     }
 
     /**
@@ -48,7 +40,8 @@ public class P_Ingreso extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         gridReservas = new javax.swing.JTable();
         btn_Limpiar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_Activar = new javax.swing.JButton();
+        btn_Eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,10 +117,38 @@ public class P_Ingreso extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_Activar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Activar.png"))); // NOI18N
+        btn_Activar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Activar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btn_ActivarMouseMoved(evt);
+            }
+        });
+        btn_Activar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_ActivarMouseExited(evt);
+            }
+        });
+        btn_Activar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_ActivarActionPerformed(evt);
+            }
+        });
+
+        btn_Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Eliminar.png"))); // NOI18N
+        btn_Eliminar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btn_EliminarMouseMoved(evt);
+            }
+        });
+        btn_Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_EliminarMouseExited(evt);
+            }
+        });
+        btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_EliminarActionPerformed(evt);
             }
         });
 
@@ -150,8 +171,10 @@ public class P_Ingreso extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(178, 178, 178))
+                .addComponent(btn_Activar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88)
+                .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(146, 146, 146))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,9 +188,11 @@ public class P_Ingreso extends javax.swing.JFrame {
                     .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(59, 59, 59)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(jButton1)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_Activar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,8 +223,7 @@ public class P_Ingreso extends javax.swing.JFrame {
             txt_codReserva.requestFocus();
         } else {
             Reserva r = new Reserva();
-            DefaultTableModel modelo = new DefaultTableModel();
-            modelo = r.buscarReserva(Integer.parseInt(txt_codReserva.getText()));
+            DefaultTableModel modelo = r.buscarReserva(Integer.parseInt(txt_codReserva.getText()));            
             gridReservas.setModel(modelo);
             gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
@@ -224,18 +248,46 @@ public class P_Ingreso extends javax.swing.JFrame {
         cargarReservas();
     }//GEN-LAST:event_btn_LimpiarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_ActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ActivarActionPerformed
+        int fila = gridReservas.getSelectedRow();
+        if(fila!=-1){
+        Reserva r = new Reserva();
+        r.activarReserva(fila);
+        cargarReservas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una reserva para poder activarla", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_ActivarActionPerformed
+
+    private void btn_ActivarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ActivarMouseExited
+        btn_Activar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Activar.png")));
+    }//GEN-LAST:event_btn_ActivarMouseExited
+
+    private void btn_ActivarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ActivarMouseMoved
+        btn_Activar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Activar2.png")));
+    }//GEN-LAST:event_btn_ActivarMouseMoved
+
+    private void btn_EliminarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EliminarMouseMoved
+        btn_Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Eliminar2.png")));
+    }//GEN-LAST:event_btn_EliminarMouseMoved
+
+    private void btn_EliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EliminarMouseExited
+       btn_Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Eliminar.png")));
+    }//GEN-LAST:event_btn_EliminarMouseExited
+
+    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
         TableModel grid = gridReservas.getModel();
         int fila = gridReservas.getSelectedRow();
-        System.out.println("El registro es: " + gridReservas.getValueAt(fila, 0));
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void Item1ActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("Clic en Activar");
-    }
+        if(fila!=-1){
+        Reserva r = new Reserva();
+        r.eliminarReserva(fila);
+        cargarReservas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una reserva para poder eliminarla", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_EliminarActionPerformed
     
-     public void cargarReservas() {
+    public void cargarReservas() {
         DefaultTableModel modelo = new DefaultTableModel();
         Reserva r = new Reserva();
         modelo = r.mostrarReservas();
@@ -251,10 +303,11 @@ public class P_Ingreso extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Activar;
     private javax.swing.JButton btn_Buscar;
+    private javax.swing.JButton btn_Eliminar;
     private javax.swing.JButton btn_Limpiar;
     private javax.swing.JTable gridReservas;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

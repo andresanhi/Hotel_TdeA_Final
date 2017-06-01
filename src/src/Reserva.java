@@ -17,8 +17,8 @@ public class Reserva {
         try {
             Conexion con = new Conexion();
             Connection link = con.conectar();
-            String SQL = "INSERT INTO tblreservas (idReservas, cliente, tipo, documento, telefono, num_acompanantes,fecha_ingreso,fecha_salida,noches,tipo_habitacion, es_reserva, numFactura, numHabitacion)"
-                    + "VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,NULL,?)";
+            String SQL = "INSERT INTO tblreservas (idReservas, cliente, tipo, documento, telefono, num_acompanantes,fecha_ingreso,fecha_salida,noches,tipo_habitacion, es_reserva, numFactura, numHabitacion,estado)"
+                    + "VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,NULL,?,0)";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, nombre);
             pSQL.setInt(2, tipo);
@@ -59,7 +59,12 @@ public class Reserva {
         try {
             Conexion con = new Conexion();
             Connection link = con.conectar();
-            String SQL = "SELECT * FROM tblReservas";
+            String SQL = "SELECT idreservas,cliente,\n"
+                    + " CASE WHEN tipo = 1 THEN \"Cédula de ciudadanía\"\n"
+                    + "     WHEN tipo = 2 THEN \"Cédula extranjería\"\n"
+                    + "     WHEN tipo = 3 THEN \"Pasaporte\" END as tipo, documento, telefono, numHabitacion, tipo_habitacion ,num_acompanantes, fecha_ingreso, fecha_salida, noches\n"
+                    + "      FROM tblReservas\n"
+                    + "WHERE estado = 0";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             ResultSet rs = pSQL.executeQuery();
             ModeloTabla mt = new ModeloTabla();
@@ -110,7 +115,7 @@ public class Reserva {
                     + "            FROM tblReservas r \n"
                     + "            INNER JOIN tblhabitaciones h ON r.numHabitacion = h.num_habitacion\n"
                     + "            INNER JOIN tblclientes c ON r.documento = c.documento\n"
-                    + "            WHERE r.documento = ? AND numFactura IS NULL";
+                    + "            WHERE r.documento = ? AND numFactura IS NULL AND estado = 1";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, doc);
             ResultSet rs = pSQL.executeQuery();
@@ -153,10 +158,36 @@ public class Reserva {
     }
 
     public void eliminarReserva(int codRes) {
+        try {
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            String SQL = "DELETE FROM tblreservas WHERE idreservas = ?";
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            pSQL.setInt(1, codRes);
+            pSQL.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Se ha eliminado la reserva satisfactoriamente", "CONFIRMACIÓN", 1);
 
+            link.close();
+            pSQL.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error eliminando la reserva " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void activarReserva(int codRes) {
+        try {
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            String SQL = "UPDATE tblreservas SET estado = 1 WHERE idreservas = ?";
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            pSQL.setInt(1, codRes);
+            pSQL.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Se ha activado la reserva satisfactoriamente", "CONFIRMACIÓN", 1);
 
+            link.close();
+            pSQL.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error actualizando el estado de la reserva " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

@@ -322,7 +322,6 @@ public class Menu extends javax.swing.JFrame {
 
     private void btn_ReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReservarActionPerformed
         P_Reservas pr = new P_Reservas();
-        //pr.esReserva(1);
         pr.setVisible(true);
     }//GEN-LAST:event_btn_ReservarActionPerformed
 
@@ -332,7 +331,8 @@ public class Menu extends javax.swing.JFrame {
             P_Reservas pr = new P_Reservas();
             //pr.esReserva(0);
             pr.setVisible(true);
-        } else if (opc==0) {
+            
+        } else if (opc == 0) {
             P_Ingreso pi = new P_Ingreso();
             pi.setVisible(true);
         }
