@@ -26,22 +26,18 @@ public class P_Habitaciones extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         crearTabla(modelo);
         JPopupMenu popup = new JPopupMenu();
-        JMenuItem item = new JMenuItem("Reservar");
-        popup.add(item);
+        JMenuItem reservar = new JMenuItem("Reservar");
+        popup.add(reservar);
         gridRooms.setComponentPopupMenu(popup);
         gridRooms.addMouseListener(new TableMouseListener(gridRooms));
     }
 
+    private void reservarActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("Prueba exitosa");
+    }
+
     public void crearTabla(DefaultTableModel modelo) {
-        /*gridRooms.setModel(new javax.swing.table.DefaultTableModel(datos,titulos) {
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
-            };
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });*/
-        modelo.addColumn("Seleccionar", new Object [] {false});
+        //modelo.addColumn("Seleccionar", new Object[]{false});
 
         gridRooms.setModel(modelo);
         gridRooms.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -129,9 +125,6 @@ public class P_Habitaciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ReservarActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("Prueba exitosa");
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable gridRooms;

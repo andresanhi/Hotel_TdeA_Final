@@ -11,6 +11,7 @@ import src.Reserva;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.table.TableModel;
 
 //@author Jhony_Angulo
 public class P_Ingreso extends javax.swing.JFrame {
@@ -47,6 +48,7 @@ public class P_Ingreso extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         gridReservas = new javax.swing.JTable();
         btn_Limpiar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -122,6 +124,13 @@ public class P_Ingreso extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,6 +148,10 @@ public class P_Ingreso extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(178, 178, 178))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +165,9 @@ public class P_Ingreso extends javax.swing.JFrame {
                     .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(59, 59, 59)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addComponent(jButton1)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -209,6 +224,13 @@ public class P_Ingreso extends javax.swing.JFrame {
         cargarReservas();
     }//GEN-LAST:event_btn_LimpiarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        TableModel grid = gridReservas.getModel();
+        int fila = gridReservas.getSelectedRow();
+        System.out.println("El registro es: " + gridReservas.getValueAt(fila, 0));
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void Item1ActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("Clic en Activar");
     }
@@ -220,6 +242,9 @@ public class P_Ingreso extends javax.swing.JFrame {
         gridReservas.setModel(modelo);
         gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        for(int i = 0; i<gridReservas.getColumnCount();i++){
+            gridReservas.setAutoResizeMode(i);
+        }
     }
     /**
      * @param args the command line arguments
@@ -229,6 +254,7 @@ public class P_Ingreso extends javax.swing.JFrame {
     private javax.swing.JButton btn_Buscar;
     private javax.swing.JButton btn_Limpiar;
     private javax.swing.JTable gridReservas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
