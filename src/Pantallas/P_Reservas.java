@@ -357,7 +357,7 @@ public class P_Reservas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La fecha de salida no puede ser inferior a la fecha de ingreso, por favor valide","ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             Reserva r = new Reserva ();
-            int reserva = r.generarReserva(1, txt_Tipo.getSelectedIndex(), txt_Doc.getText(), txt_Nombre.getText(), Integer.parseInt(txt_Tel.getText()), txt_acomp.getSelectedIndex(), f_Ingreso, f_Salida, (String)txt_TipoHab.getSelectedItem(),Double.parseDouble(txt_Precio.getText()), dif);
+            int reserva = r.generarReserva(1, txt_Tipo.getSelectedIndex(), txt_Doc.getText(), txt_Nombre.getText(), Integer.parseInt(txt_Tel.getText()), txt_acomp.getSelectedIndex(), f_Ingreso, f_Salida, (String)txt_TipoHab.getSelectedItem(),dif);
                         
             if(reserva != 0){
                 JOptionPane.showMessageDialog(null,"Su número de reserva es:" + reserva, "ALERTA", JOptionPane.OK_OPTION);

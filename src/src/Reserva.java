@@ -12,13 +12,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class Reserva {
 
-    public int generarReserva(int esreserva, int tipo, String documento, String nombre, int tel, int numAcom, String fingreso, String fsalida, String tipohab, double precionoche, int noches) {
+    public int generarReserva(int esreserva, int tipo, String documento, String nombre, int tel, int numAcom, String fingreso, String fsalida, String tipohab,int noches) {
         int NumRes = 0;
         try {
             Conexion con = new Conexion();
             Connection link = con.conectar();
-            String SQL = "INSERT INTO tblreservas (idReservas, cliente, tipo, documento, telefono, num_acompanantes,fecha_ingreso,fecha_salida,noches,tipo_habitacion, precioXnoche,es_reserva, numFactura)"
-                    + "VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,?,NULL)";
+            String SQL = "INSERT INTO tblreservas (idReservas, cliente, tipo, documento, telefono, num_acompanantes,fecha_ingreso,fecha_salida,noches,tipo_habitacion, es_reserva, numFactura, numHabitacion)"
+                    + "VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,NULL,100)";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, nombre);
             pSQL.setInt(2, tipo);
@@ -29,8 +29,7 @@ public class Reserva {
             pSQL.setString(7, fsalida);
             pSQL.setInt(8, noches);
             pSQL.setString(9, tipohab);
-            pSQL.setDouble(10, precionoche);
-            pSQL.setInt(11, esreserva);
+            pSQL.setInt(10, esreserva);
 
             pSQL.executeUpdate();
 
@@ -46,7 +45,6 @@ public class Reserva {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error recuperando número de reserva" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-            System.out.println("Reserva insertado");
             link.close();
             pSQL.close();
         } catch (Exception e) {
@@ -95,6 +93,55 @@ public class Reserva {
             JOptionPane.showMessageDialog(null, "Error buscando la reserva " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return (modelo);
+    }
+    
+    public DefaultTableModel buscarReservaFV (String doc){
+        DefaultTableModel modelo = new DefaultTableModel();
+        try {
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            String SQL = "SELECT r.numHabitacion, h.tipo_habitacion, r.noches,r.num_acompanantes, h.precio_noche, (r.noches*h.precio_noche) as Total\n"
+                    +"FROM tblReservas r INNER JOIN tblhabitaciones h ON r.numHabitacion = h.num_habitacion\n "
+                    +"WHERE r.documento = ? AND numFactura IS NULL";
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            pSQL.setString(1, doc);
+            ResultSet rs = pSQL.executeQuery();
+            ModeloTabla mt = new ModeloTabla();
+            modelo = mt.generarModelo(rs);
+
+            //JOptionPane.showMessageDialog(null, "No se encontraron reservas activas con el número " + numReserva, "ATENCIÓN", 1);                
+            link.close();
+            pSQL.close();
+            rs.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error buscando la reserva " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return (modelo);
+    }
+    
+    public String buscarCliente(String doc){
+        String cliente = null;
+        try {
+            Conexion con = new Conexion();
+            Connection link = con.conectar();
+            String SQL = "SELECT cliente\n"
+                    +"FROM tblReservas\n"
+                    +"WHERE documento = ? ";
+            PreparedStatement pSQL = link.prepareStatement(SQL);
+            pSQL.setString(1, doc);
+            ResultSet rs = pSQL.executeQuery();
+            if(rs.next()){
+                cliente = rs.getString("cliente");
+            }
+
+            //JOptionPane.showMessageDialog(null, "No se encontraron reservas activas con el número " + numReserva, "ATENCIÓN", 1);                
+            link.close();
+            pSQL.close();
+            rs.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error buscando el cliente " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return(cliente);
     }
 
     public void eliminarReserva(int codRes) {
