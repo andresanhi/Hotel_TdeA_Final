@@ -25,7 +25,7 @@ public class Ingreso {
             break;
             case 2:
                 System.out.println("Seleccione la habitación que desea");
-                h.mostrarHabitaciones();      
+                //h.mostrarHabitaciones();      
         }
     }
 }

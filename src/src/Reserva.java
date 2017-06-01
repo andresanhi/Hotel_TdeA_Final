@@ -12,13 +12,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class Reserva {
 
-    public int generarReserva(int esreserva, int tipo, String documento, String nombre, int tel, int numAcom, String fingreso, String fsalida, String tipohab, int noches) {
+    public int generarReserva(int esreserva, int tipo, String documento, String nombre, int tel, int numAcom, String fingreso, String fsalida, String tipohab, int noches, int numHabitacion) {
         int NumRes = 0;
         try {
             Conexion con = new Conexion();
             Connection link = con.conectar();
             String SQL = "INSERT INTO tblreservas (idReservas, cliente, tipo, documento, telefono, num_acompanantes,fecha_ingreso,fecha_salida,noches,tipo_habitacion, es_reserva, numFactura, numHabitacion)"
-                    + "VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,NULL,100)";
+                    + "VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?,NULL,?)";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             pSQL.setString(1, nombre);
             pSQL.setInt(2, tipo);
@@ -30,6 +30,7 @@ public class Reserva {
             pSQL.setInt(8, noches);
             pSQL.setString(9, tipohab);
             pSQL.setInt(10, esreserva);
+            pSQL.setInt(11, numHabitacion);
 
             pSQL.executeUpdate();
 
