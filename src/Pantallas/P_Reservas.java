@@ -389,6 +389,10 @@ public class P_Reservas extends javax.swing.JFrame {
         String f_Salida = sdf.format(fSalida.getDate());
         DefaultTableModel modelo = h.mostrarHabitaciones(f_Ingreso, f_Salida);
         gridRooms.setModel(modelo);
+        int canHab = gridRooms.getRowCount();
+        if(canHab==0){
+            JOptionPane.showMessageDialog(null, "No hay habitaciones disponibles para las fechas seleccionadas", "ALERTA", 1);
+        }
     }
 
     /*fSalida.addActionListener(new ActionListener() {

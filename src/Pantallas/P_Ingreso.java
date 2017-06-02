@@ -229,6 +229,11 @@ public class P_Ingreso extends javax.swing.JFrame {
             gridReservas.setModel(modelo);
             gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+            //Valido cuántas reservas hay en la grid, si es 0 digo que no se encontraron.
+            int canRes = gridReservas.getRowCount();
+            if(canRes == 0){
+                JOptionPane.showMessageDialog(null, "No se encontraron datos para la reserva con código: " +txt_codReserva.getText(),"ALERTA", 1 );
+            }
         }
 
     }//GEN-LAST:event_btn_BuscarActionPerformed

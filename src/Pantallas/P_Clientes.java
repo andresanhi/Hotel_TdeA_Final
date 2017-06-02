@@ -452,6 +452,10 @@ public class P_Clientes extends javax.swing.JFrame {
         gridClientes.setModel(modelo);
         gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        int canClien = gridClientes.getRowCount();
+        if(canClien == 0){
+            JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con la cédula " + cc,"ALERTA", 1);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

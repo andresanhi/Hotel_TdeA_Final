@@ -456,11 +456,16 @@ public class P_Facturar extends javax.swing.JFrame {
         if (txt_Doc.getText().length() != 0) {
             Reserva r = new Reserva();
             String nombre = r.buscarCliente(txt_Doc.getText());
-            txt_Cliente.setText(nombre);
             //Llama el método que busca las reservas a facturar y guarda lo que retorna en un DefaultTableModel
             modelo = r.buscarReservaFV(txt_Doc.getText());
             gridFacturas.setModel(modelo);
-            calcularTotal();
+            int canFv = gridFacturas.getRowCount();
+                    if(canFv==0){
+                        JOptionPane.showMessageDialog(null, "No se encontraron reservas activas para el documento: " + txt_Doc.getText(), "ALERTA",1);
+                    } else{
+                      txt_Cliente.setText(nombre);
+            calcularTotal();  
+                    }
         } else {
             JOptionPane.showMessageDialog(null, "Debe ingresar un documento para poder realizar la búsqueda", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
