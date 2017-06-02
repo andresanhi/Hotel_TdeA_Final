@@ -117,7 +117,7 @@ public class Reserva {
         // se retorna el modelo.
         return (modelo);
     }
-
+ 
     // Devuelve las reservas a facturar, con estado = 1 es decir, activas.
     public DefaultTableModel buscarReservaFV(String doc) {
         DefaultTableModel modelo = new DefaultTableModel();

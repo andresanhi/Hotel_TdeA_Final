@@ -367,9 +367,6 @@
               <Font name="Century Gothic" size="14" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fIngresoFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="cc6">
           <Properties>
@@ -393,9 +390,6 @@
               <Font name="Century Gothic" size="14" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fSalidaFocusLost"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_Guardar">
           <Properties>

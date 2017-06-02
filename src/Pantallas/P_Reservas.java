@@ -5,6 +5,7 @@
  */
 package Pantallas;
 
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -139,11 +140,6 @@ public class P_Reservas extends javax.swing.JFrame {
         fIngreso.setBackground(new java.awt.Color(255, 255, 255));
         fIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         fIngreso.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fIngreso.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                fIngresoFocusLost(evt);
-            }
-        });
 
         cc6.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         cc6.setForeground(new java.awt.Color(255, 204, 0));
@@ -151,11 +147,6 @@ public class P_Reservas extends javax.swing.JFrame {
 
         fSalida.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         fSalida.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fSalida.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                fSalidaFocusLost(evt);
-            }
-        });
 
         btn_Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Guardar.png"))); // NOI18N
         btn_Guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -328,8 +319,8 @@ public class P_Reservas extends javax.swing.JFrame {
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
         //Valida que los campos no estén vacíos y oculta el formulario.
-        if(txt_Doc.getText().length()!=0 || txt_Nombre.getText().length()!=0 || txt_Tel.getText().length()!=0 || txt_Tipo.getSelectedIndex()!=0){
-            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea continuar, se perderán los cambios realizados?","ATENCIÓN",1);
+        if (txt_Doc.getText().length() != 0 || txt_Nombre.getText().length() != 0 || txt_Tel.getText().length() != 0 || txt_Tipo.getSelectedIndex() != 0) {
+            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea continuar, se perderán los cambios realizados?", "ATENCIÓN", 1);
             //Si el usuario dice que si, se cierra el formulario.
             if (opc == 0) {
                 this.dispose();
@@ -337,13 +328,13 @@ public class P_Reservas extends javax.swing.JFrame {
         } else {
             this.dispose();
         }
-        
+
     }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
         int fl = gridRooms.getSelectedRow();
         if (fl != -1) {
-            if (txt_Doc.getText().length() == 0 || txt_Nombre.getText().length() == 0 || txt_Tel.getText().length() == 0 || txt_Tipo.getSelectedIndex() == 0 ) {
+            if (txt_Doc.getText().length() == 0 || txt_Nombre.getText().length() == 0 || txt_Tel.getText().length() == 0 || txt_Tipo.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
                 Fechas f = new Fechas();
@@ -351,7 +342,7 @@ public class P_Reservas extends javax.swing.JFrame {
                 String tipoHab = (String) gridRooms.getValueAt(fl, 2);
                 String estado = (String) gridRooms.getValueAt(fl, 3);
                 int acomp = (int) gridRooms.getValueAt(fl, 1);
-                if (txt_acomp.getSelectedIndex()<=acomp) {
+                if (txt_acomp.getSelectedIndex() <= acomp) {
                     if (estado.equals("Ocupada")) {
                         JOptionPane.showMessageDialog(null, "No se puede guardar la reserva, la habitación seleccionada está ocupada para esa fecha\n por favor seleccione otra", "ALERTA", 2);
                     } else {
@@ -382,14 +373,6 @@ public class P_Reservas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
-    private void fSalidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fSalidaFocusLost
-        cargarTabla();
-    }//GEN-LAST:event_fSalidaFocusLost
-
-    private void fIngresoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fIngresoFocusLost
-        cargarTabla();
-    }//GEN-LAST:event_fIngresoFocusLost
-
     //setea las fechas del JDateChooser, ingreso día actual, salida (dia actual + 1)
     public void setFechas() {
         Calendar fecha = Calendar.getInstance();
@@ -408,6 +391,12 @@ public class P_Reservas extends javax.swing.JFrame {
         gridRooms.setModel(modelo);
     }
 
+    /*fSalida.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            fr.getSeconDate().setEnabled(true);
+        }
+    });*/
     /**
      * @param args the command line arguments
      */
