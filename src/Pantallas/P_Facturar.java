@@ -415,7 +415,6 @@ public class P_Facturar extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_LimpiarActionPerformed
 
     private void btn_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CrearActionPerformed
-        //int fv = 0;
         if (txt_Doc.getText().length() == 0 || txt_Cliente.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -432,8 +431,6 @@ public class P_Facturar extends javax.swing.JFrame {
             limpiarCampos();
             mostrarFacturas();
         }
-        //txt_fv.setText(String.valueOf(fv));
-
     }//GEN-LAST:event_btn_CrearActionPerformed
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
