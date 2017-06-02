@@ -21,6 +21,7 @@ public class ModeloTabla {
             int numCol = metaDatos.getColumnCount();
             //Se obtienen los nombres de cada columna
             for (int i = 0; i < numCol; i++) {
+                //Se adicionan columnas al modelo
                 DateTableModel.addColumn(metaDatos.getColumnName(i + 1));
             }
             //Se llena la tabla con filas.
@@ -30,12 +31,14 @@ public class ModeloTabla {
                 for (int i = 0; i < numCol; i++) {
                     fila[i] = res.getObject(i + 1);
                 }
+                //Se adiciona fila al modelo
                 DateTableModel.addRow(fila);
             }
             res.close();
         } catch (Exception e) {
         }
         //System.out.println("Modelo Tabla " + DateTableModel);
+        //Se retorna el modelo
         return (DateTableModel);
     }
 }

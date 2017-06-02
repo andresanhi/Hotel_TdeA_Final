@@ -292,21 +292,25 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_SalirMouseExited
 
     private void btn_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalirActionPerformed
+        //Finaliza la ejecución del programa
         System.exit(0);
     }//GEN-LAST:event_btn_SalirActionPerformed
 
     private void btn_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClientesActionPerformed
+        //Carga el formulario de clientes y llama el método que pinta la grid de clientes
         P_Clientes pc = new P_Clientes();
         pc.setVisible(true);
         pc.mostrarClientes();
     }//GEN-LAST:event_btn_ClientesActionPerformed
 
     private void btn_ReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReservarActionPerformed
+        //Llama el formulario de reservas
         P_Reservas pr = new P_Reservas();
         pr.setVisible(true);
     }//GEN-LAST:event_btn_ReservarActionPerformed
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
+        //Pregunta si se tiene número de reserva, si es así abre el formulario de ingreso, de lo contrario el de reservas
         int opc = JOptionPane.showConfirmDialog(null, "¿Tiene número de reserva?", "ALERTA", 0, 1);
         if (opc == 1) {
             P_Reservas pr = new P_Reservas();
@@ -320,6 +324,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
     private void btn_FacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FacturarActionPerformed
+        //Abre el formulario de facturar
         P_Facturar pf = new P_Facturar();
         pf.setVisible(true);
     }//GEN-LAST:event_btn_FacturarActionPerformed

@@ -399,6 +399,7 @@ public class P_Facturar extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CancelarMouseMoved
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
+        //Cierra la vetana y pregunta si desea continuar en caso de que algún campo contenga datos.
         if (txt_Doc.getText().length() != 0 || txt_Cliente.getText().length() != 0) {
             int opc = JOptionPane.showConfirmDialog(null, "Si continúa perderá los datos \n¿Está seguro que desea continuar?", "ALERTA", 0, 2);
             if (opc == 0) {
@@ -410,15 +411,19 @@ public class P_Facturar extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
+        //Limpiar el formulario y recarga la grid de facturas (queda en blanco)
         limpiarCampos();
         mostrarFacturas();
     }//GEN-LAST:event_btn_LimpiarActionPerformed
 
     private void btn_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CrearActionPerformed
+        //Valida que los campos no estén vacíos
         if (txt_Doc.getText().length() == 0 || txt_Cliente.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
+            //Almacena en un array los números de facturas
             Integer [] reservas = new Integer[gridFacturas.getRowCount()];
+            //Recupera la información de lo que se va a facturar 
             int fl = gridFacturas.getSelectedRow();
             int cantHab = gridFacturas.getRowCount();
             int dcto = Integer.parseInt(txt_dcto.getText());
@@ -426,6 +431,7 @@ public class P_Facturar extends javax.swing.JFrame {
             for(int i = 0;i<cantHab;i++){
                 reservas[i] = (int)(gridFacturas.getValueAt(i,7));
             }
+            //Llama el método que genera facturas y le pasa los parámetros.
             Facturas f = new Facturas();
             f.generarFactura(txt_Cliente.getText(), txt_Doc.getText(), cantHab, dcto, total, reservas);
             limpiarCampos();
@@ -434,20 +440,24 @@ public class P_Facturar extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CrearActionPerformed
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
+        //Llama el método que busca las reservas a facturar
         buscarReservas();
     }//GEN-LAST:event_btn_BuscarActionPerformed
 
     public void mostrarFacturas() {
+        //Carga la grid con los datos de las reservas activas para ese nit
         DefaultTableModel modelo = new DefaultTableModel();
         gridFacturas.setModel(modelo);
     }
 
+    //Busca las reservas.
     public void buscarReservas() {
         DefaultTableModel modelo = new DefaultTableModel();
         if (txt_Doc.getText().length() != 0) {
             Reserva r = new Reserva();
             String nombre = r.buscarCliente(txt_Doc.getText());
             txt_Cliente.setText(nombre);
+            //Llama el método que busca las reservas a facturar y guarda lo que retorna en un DefaultTableModel
             modelo = r.buscarReservaFV(txt_Doc.getText());
             gridFacturas.setModel(modelo);
             calcularTotal();
@@ -457,6 +467,7 @@ public class P_Facturar extends javax.swing.JFrame {
 
     }
 
+    //Calcula el total de la factura a partir del subtotal y el descuento.
     public void calcularTotal() {
         TableModel grid = gridFacturas.getModel();
         int subTotal = 0;
@@ -470,6 +481,7 @@ public class P_Facturar extends javax.swing.JFrame {
         txt_total.setText(String.valueOf(subTotal - dcto));
     }
 
+    //Limpia los campos del formulario recibiendo un JPanel
     public void limpiarCampos() {
         JPanel panel = this.panelFac;
         for (int i = 0; panel.getComponents().length > i; i++) {

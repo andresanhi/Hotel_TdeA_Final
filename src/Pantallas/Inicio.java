@@ -93,6 +93,7 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
+        // Se oculta la ventana inicial y se carga el Menu
         Menu m = new Menu();
         this.dispose();
         m.setVisible(true);
@@ -136,9 +137,9 @@ public class Inicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                //Se genera ingreso al sistema
                 new Inicio().setVisible(true);
-                Hotel h = new Hotel();
-            }
+                            }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

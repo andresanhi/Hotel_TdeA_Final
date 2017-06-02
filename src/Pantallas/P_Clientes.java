@@ -1,4 +1,4 @@
-package Pantallas;
+        package Pantallas;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -357,12 +357,16 @@ public class P_Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CancelarMouseExited
 
     private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
+        //Guarda el cliente, antes valida que los campos no estén nulos.
         if (txt_cc.getText().length() == 0 || txt_Nombre.getText().length() == 0 || txt_tel.getText().length() == 0 || txt_tipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor verifique antes de guardar", "ALERTA", 0);
         } else {
+            //Consulta con el método si el cliente ya existe
             ClientePref cf = new ClientePref();
             boolean insertar = cf.validarExistencia(txt_cc.getText());
+            //Si el cliente no existe procede a crearlo
             if (insertar == true) {
+                //Crea el cliente
                 int opc = cf.crearClientePref(txt_Nombre.getText(), txt_tipo.getSelectedIndex(), txt_cc.getText(), Integer.parseInt(txt_tel.getText()), txt_mail.getText());
                 if (opc == 0) {
                     limpiarCampos();
@@ -372,13 +376,16 @@ public class P_Clientes extends javax.swing.JFrame {
                 }
 
             } else {
+                //Si el cliente existe lo informa por un Pop-up y no lo crea.
                 JOptionPane.showMessageDialog(null, "Ya existe un cliente con el documento " + txt_cc.getText() + " por favor verifique", "ALERTA", 0);
             }
         }
     }//GEN-LAST:event_btn_GuardarActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
+        //Cierra el formulario, pero valida inicialmente que los campos estén vacíos
         if (txt_cc.getText().length() != 0 || txt_Nombre.getText().length() != 0 || txt_tel.getText().length() != 0 || txt_tipo.getSelectedIndex() != 0 || txt_mail.getText().length() != 0) {
+            //Si no están vacíos pregunta si desea continuar e informa que se van a perder los datos.
             int opc = JOptionPane.showConfirmDialog(null, "Si continúa perderá los datos \n¿Está seguro que desea continuar?", "ALERTA", 0, 2);
             if (opc == 0) {
                 this.dispose();
@@ -409,10 +416,13 @@ public class P_Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_LimpiarMouseMoved
 
     private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
+        //Limpia todos los campos del formulario.
         txt_buscar.setText(null);
+        limpiarCampos();
         mostrarClientes();
     }//GEN-LAST:event_btn_LimpiarActionPerformed
 
+    //Limpia el JFrame, este método recibe como parámetro un JPanel y limpia todos los componentes que éste contenga.
     public void limpiarCampos() {
         JPanel panel = this.panel_CP;
         for (int i = 0; panel.getComponents().length > i; i++) {
@@ -424,6 +434,7 @@ public class P_Clientes extends javax.swing.JFrame {
         }
     }
 
+    //Carga la grid de clientes.
     public void mostrarClientes() {
         DefaultTableModel modelo = new DefaultTableModel();
         ClientePref cp = new ClientePref();

@@ -327,13 +327,23 @@ public class P_Reservas extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CancelarMouseExited
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        this.dispose();
+        //Valida que los campos no estén vacíos y oculta el formulario.
+        if(txt_Doc.getText().length()!=0 || txt_Nombre.getText().length()!=0 || txt_Tel.getText().length()!=0 || txt_Tipo.getSelectedIndex()!=0){
+            int opc = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea continuar, se perderán los cambios realizados?","ATENCIÓN",1);
+            //Si el usuario dice que si, se cierra el formulario.
+            if (opc == 0) {
+                this.dispose();
+            }
+        } else {
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
         int fl = gridRooms.getSelectedRow();
         if (fl != -1) {
-            if (txt_Doc.getText().length() == 0 || txt_Nombre.getText().length() == 0 || txt_Tel.getText().length() == 0 || txt_Tipo.getSelectedIndex() == 0 || txt_acomp.getSelectedIndex() == 0) {
+            if (txt_Doc.getText().length() == 0 || txt_Nombre.getText().length() == 0 || txt_Tel.getText().length() == 0 || txt_Tipo.getSelectedIndex() == 0 ) {
                 JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
                 Fechas f = new Fechas();
@@ -341,8 +351,6 @@ public class P_Reservas extends javax.swing.JFrame {
                 String tipoHab = (String) gridRooms.getValueAt(fl, 2);
                 String estado = (String) gridRooms.getValueAt(fl, 3);
                 int acomp = (int) gridRooms.getValueAt(fl, 1);
-                System.out.println(acomp);
-                System.out.println(txt_acomp.getSelectedIndex());
                 if (txt_acomp.getSelectedIndex()<=acomp) {
                     if (estado.equals("Ocupada")) {
                         JOptionPane.showMessageDialog(null, "No se puede guardar la reserva, la habitación seleccionada está ocupada para esa fecha\n por favor seleccione otra", "ALERTA", 2);
@@ -382,6 +390,7 @@ public class P_Reservas extends javax.swing.JFrame {
         cargarTabla();
     }//GEN-LAST:event_fIngresoFocusLost
 
+    //setea las fechas del JDateChooser, ingreso día actual, salida (dia actual + 1)
     public void setFechas() {
         Calendar fecha = Calendar.getInstance();
         fIngreso.setCalendar(fecha);
@@ -389,11 +398,13 @@ public class P_Reservas extends javax.swing.JFrame {
         fSalida.setCalendar(fecha);
     }
 
+    //carga la grid de habitaciones.
     public void cargarTabla() {
         Hotel h = new Hotel();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String f_Ingreso = sdf.format(fIngreso.getDate());
-        DefaultTableModel modelo = h.mostrarHabitaciones(f_Ingreso);
+        String f_Salida = sdf.format(fSalida.getDate());
+        DefaultTableModel modelo = h.mostrarHabitaciones(f_Ingreso, f_Salida);
         gridRooms.setModel(modelo);
     }
 

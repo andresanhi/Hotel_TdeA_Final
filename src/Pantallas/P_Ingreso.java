@@ -219,6 +219,7 @@ public class P_Ingreso extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_BuscarMouseExited
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
+        //valida que tenga datos el campo de la reserva y consulta el método que busca reservas.
         if (txt_codReserva.getText().length()==0) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un valor para buscar", "ALERTA", 2);
             txt_codReserva.requestFocus();
@@ -250,6 +251,7 @@ public class P_Ingreso extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_LimpiarActionPerformed
 
     private void btn_ActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ActivarActionPerformed
+        //Valida que se haya seleccionado una reserva y llama el método que activa las reservas en BDD
         int fila = gridReservas.getSelectedRow();
         if(fila!=-1){
         Reserva r = new Reserva();
@@ -278,6 +280,7 @@ public class P_Ingreso extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_EliminarMouseExited
 
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
+        //Valida que se tenga una reserva seleccionada y llama el método que las elimina en bdd
         TableModel grid = gridReservas.getModel();
         int fila = gridReservas.getSelectedRow();
         if(fila!=-1){
@@ -290,9 +293,11 @@ public class P_Ingreso extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_EliminarActionPerformed
     
+    //Carga las reservas activas
     public void cargarReservas() {
         DefaultTableModel modelo = new DefaultTableModel();
         Reserva r = new Reserva();
+        //Consulta el método que las carga y almacena el resultado en un DefaultTableModel
         modelo = r.mostrarReservas();
         gridReservas.setModel(modelo);
         gridReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
