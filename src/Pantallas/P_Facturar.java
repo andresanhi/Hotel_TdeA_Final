@@ -45,8 +45,6 @@ public class P_Facturar extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         gridFacturas = new javax.swing.JTable();
         btn_Cancelar = new javax.swing.JButton();
-        txt_fv = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txt_total = new javax.swing.JTextField();
         btn_Crear = new javax.swing.JButton();
@@ -180,12 +178,6 @@ public class P_Facturar extends javax.swing.JFrame {
             }
         });
 
-        txt_fv.setEditable(false);
-
-        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 204, 0));
-        jLabel9.setText("FV");
-
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 204, 0));
         jLabel10.setText("TOTAL");
@@ -275,13 +267,11 @@ public class P_Facturar extends javax.swing.JFrame {
                                 .addGap(48, 48, 48)
                                 .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelFacLayout.createSequentialGroup()
-                                .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_fv, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(panelFacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(panelFacLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -320,10 +310,7 @@ public class P_Facturar extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelFacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_fv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
@@ -422,14 +409,14 @@ public class P_Facturar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             //Almacena en un array los números de facturas
-            Integer [] reservas = new Integer[gridFacturas.getRowCount()];
+            Integer[] reservas = new Integer[gridFacturas.getRowCount()];
             //Recupera la información de lo que se va a facturar 
             int fl = gridFacturas.getSelectedRow();
             int cantHab = gridFacturas.getRowCount();
             int dcto = Integer.parseInt(txt_dcto.getText());
             int total = Integer.parseInt(txt_total.getText());
-            for(int i = 0;i<cantHab;i++){
-                reservas[i] = (int)(gridFacturas.getValueAt(i,7));
+            for (int i = 0; i < cantHab; i++) {
+                reservas[i] = (int) (gridFacturas.getValueAt(i, 7));
             }
             //Llama el método que genera facturas y le pasa los parámetros.
             Facturas f = new Facturas();
@@ -460,12 +447,12 @@ public class P_Facturar extends javax.swing.JFrame {
             modelo = r.buscarReservaFV(txt_Doc.getText());
             gridFacturas.setModel(modelo);
             int canFv = gridFacturas.getRowCount();
-                    if(canFv==0){
-                        JOptionPane.showMessageDialog(null, "No se encontraron reservas activas para el documento: " + txt_Doc.getText(), "ALERTA",1);
-                    } else{
-                      txt_Cliente.setText(nombre);
-            calcularTotal();  
-                    }
+            if (canFv == 0) {
+                JOptionPane.showMessageDialog(null, "No se encontraron reservas activas para el documento: " + txt_Doc.getText(), "ALERTA", 1);
+            } else {
+                txt_Cliente.setText(nombre);
+                calcularTotal();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Debe ingresar un documento para poder realizar la búsqueda", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -509,14 +496,12 @@ public class P_Facturar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelFac;
     private javax.swing.JTextField txt_Cliente;
     private javax.swing.JTextField txt_Doc;
     private javax.swing.JTextField txt_dcto;
-    private javax.swing.JTextField txt_fv;
     private javax.swing.JTextField txt_subTotal;
     private javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables

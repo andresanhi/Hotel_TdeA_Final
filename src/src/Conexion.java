@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-    static String dbh = "Bdhotel";
+    static String dbh = "Bdhotel2";
     //almacenamiento de la cadena de conexión
     static String url = "jdbc:mysql://127.0.0.1/" + dbh;
     static String user = "root";
