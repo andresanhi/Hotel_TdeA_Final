@@ -8,6 +8,7 @@ package Pantallas;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -443,12 +444,6 @@ public class P_Reservas extends javax.swing.JFrame {
         }
     }
 
-    /*fSalida.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            fr.getSeconDate().setEnabled(true);
-        }
-    });*/
     /**
      * @param args the command line arguments
      */
