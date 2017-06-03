@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Facturas {
 
@@ -17,9 +18,13 @@ public class Facturas {
             String SQL = "SELECT MAX(Numero_factura) as Numero_factura FROM tblfacturas";
             PreparedStatement pSQL = link.prepareStatement(SQL);
             ResultSet rs = pSQL.executeQuery();
-            if (!rs.next()) {
+            ModeloTabla mt = new ModeloTabla();
+            DefaultTableModel m = mt.generarModelo(rs);
+            int can = m.getRowCount();
+            if (can != 0) {
                 //Si tiene máximo numero de reserva (la tabla tblreservas tiene datos) asigna éste a la variable ultFV
-                ultFV = Integer.parseInt(rs.getString("Numero_factura"));
+                ultFV = Integer.parseInt((String) m.getValueAt(0, 0)) + 1;
+
             } else {
                 //Si no hay datos en la tabla será por defecto 1000
                 ultFV = 1000;
@@ -67,7 +72,7 @@ public class Facturas {
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Error actualizando reservas con la factura" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-                
+
                 try {
                     //Se crea sentencia SQL para actualizar la cantidad de veces que el usuario ha estado en el hotel.
                     String SQL4 = "UPDATE tblclientes SET hospedaje = hospedaje+1 WHERE documento = ?";
@@ -77,7 +82,7 @@ public class Facturas {
                     pSQL4.setString(1, doc);
                     //Se ejecuta actualización
                     pSQL4.executeUpdate();
-                    
+
                     pSQL4.close();
                 } catch (Exception exp) {
                     JOptionPane.showMessageDialog(null, "Error actualizando la cantidad de hospedajes " + exp, "ERROR", JOptionPane.ERROR_MESSAGE);

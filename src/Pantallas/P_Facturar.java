@@ -267,10 +267,15 @@ public class P_Facturar extends javax.swing.JFrame {
                                 .addGap(48, 48, 48)
                                 .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelFacLayout.createSequentialGroup()
+<<<<<<< HEAD
                                 .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(panelFacLayout.createSequentialGroup()
                                 .addGroup(panelFacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+=======
+                                .addGroup(panelFacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> 1526edf0e60f0ff184f7cf32f52c11b34b557309
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
@@ -408,6 +413,7 @@ public class P_Facturar extends javax.swing.JFrame {
         mostrarFacturas();
     }//GEN-LAST:event_btn_LimpiarActionPerformed
 
+<<<<<<< HEAD
     private void btn_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimpiarMouseExited
         btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar.png")));
     }//GEN-LAST:event_btn_LimpiarMouseExited
@@ -415,6 +421,30 @@ public class P_Facturar extends javax.swing.JFrame {
     private void btn_LimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimpiarMouseMoved
         btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar2.png")));
     }//GEN-LAST:event_btn_LimpiarMouseMoved
+=======
+    private void btn_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CrearActionPerformed
+        //Valida que los campos no estén vacíos
+        if (txt_Doc.getText().length() == 0 || txt_Cliente.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacíos, por favor valide", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            //Almacena en un array los números de facturas
+            Integer[] reservas = new Integer[gridFacturas.getRowCount()];
+            //Recupera la información de lo que se va a facturar 
+            int fl = gridFacturas.getSelectedRow();
+            int cantHab = gridFacturas.getRowCount();
+            int dcto = Integer.parseInt(txt_dcto.getText());
+            int total = Integer.parseInt(txt_total.getText());
+            for (int i = 0; i < cantHab; i++) {
+                reservas[i] = (int) (gridFacturas.getValueAt(i, 7));
+            }
+            //Llama el método que genera facturas y le pasa los parámetros.
+            Facturas f = new Facturas();
+            f.generarFactura(txt_Cliente.getText(), txt_Doc.getText(), cantHab, dcto, total, reservas);
+            limpiarCampos();
+            mostrarFacturas();
+        }
+    }//GEN-LAST:event_btn_CrearActionPerformed
+>>>>>>> 1526edf0e60f0ff184f7cf32f52c11b34b557309
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
         //Llama el método que busca las reservas a facturar
@@ -449,12 +479,12 @@ public class P_Facturar extends javax.swing.JFrame {
             modelo = r.buscarReservaFV(txt_Doc.getText());
             gridFacturas.setModel(modelo);
             int canFv = gridFacturas.getRowCount();
-                    if(canFv==0){
-                        JOptionPane.showMessageDialog(null, "No se encontraron reservas activas para el documento: " + txt_Doc.getText(), "ALERTA",1);
-                    } else{
-                      txt_Cliente.setText(nombre);
-            calcularTotal();  
-                    }
+            if (canFv == 0) {
+                JOptionPane.showMessageDialog(null, "No se encontraron reservas activas para el documento: " + txt_Doc.getText(), "ALERTA", 1);
+            } else {
+                txt_Cliente.setText(nombre);
+                calcularTotal();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Debe ingresar un documento para poder realizar la búsqueda", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
