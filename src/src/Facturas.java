@@ -40,7 +40,17 @@ public class Facturas {
                 //Se ejecuta sentencia
                 pSQL2.executeUpdate();
                 pSQL2.close();
-                JOptionPane.showMessageDialog(null, "Factura generada correctamente");
+                JOptionPane.showMessageDialog(null, "Factura generada correctamente"); for (int i = 0; i < reservas.length; i++) {
+                        String SQL3 = "UPDATE tblreservas SET numFactura = ? WHERE idreservas = ?";
+                        PreparedStatement pSQL3 = link.prepareStatement(SQL3);
+                        pSQL3.setInt(1, ultFV);
+                        pSQL3.setInt(2, reservas[i]);
+
+                        //Se ejecuta sentencia SQL
+                        pSQL3.executeUpdate();
+                        pSQL3.close();
+                    }
+
                 try {
                     //Se crea sentencia SQL para actualizar el número de factura en la tabla de reservas.
                     for (int i = 0; i < reservas.length; i++) {

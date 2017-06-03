@@ -45,8 +45,6 @@ public class P_Facturar extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         gridFacturas = new javax.swing.JTable();
         btn_Cancelar = new javax.swing.JButton();
-        txt_fv = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txt_total = new javax.swing.JTextField();
         btn_Crear = new javax.swing.JButton();
@@ -180,12 +178,6 @@ public class P_Facturar extends javax.swing.JFrame {
             }
         });
 
-        txt_fv.setEditable(false);
-
-        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 204, 0));
-        jLabel9.setText("FV");
-
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 204, 0));
         jLabel10.setText("TOTAL");
@@ -276,12 +268,12 @@ public class P_Facturar extends javax.swing.JFrame {
                                 .addComponent(btn_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelFacLayout.createSequentialGroup()
                                 .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_fv, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelFacLayout.createSequentialGroup()
+                                .addGroup(panelFacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(panelFacLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -320,10 +312,7 @@ public class P_Facturar extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelFacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_fv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
@@ -362,60 +351,6 @@ public class P_Facturar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_DocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DocActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_DocActionPerformed
-
-    private void btn_CrearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CrearMouseExited
-        btn_Crear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Crear.png")));
-    }//GEN-LAST:event_btn_CrearMouseExited
-
-    private void btn_CrearMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CrearMouseMoved
-        btn_Crear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Crear2.png")));
-    }//GEN-LAST:event_btn_CrearMouseMoved
-
-    private void btn_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_BuscarMouseExited
-        btn_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Buscar.png")));
-    }//GEN-LAST:event_btn_BuscarMouseExited
-
-    private void btn_BuscarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_BuscarMouseMoved
-        btn_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Buscar2.png")));
-    }//GEN-LAST:event_btn_BuscarMouseMoved
-
-    private void btn_LimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimpiarMouseMoved
-        btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar2.png")));
-    }//GEN-LAST:event_btn_LimpiarMouseMoved
-
-    private void btn_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimpiarMouseExited
-        btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar.png")));
-    }//GEN-LAST:event_btn_LimpiarMouseExited
-
-    private void btn_CancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CancelarMouseExited
-        btn_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Cancelar.png")));
-    }//GEN-LAST:event_btn_CancelarMouseExited
-
-    private void btn_CancelarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CancelarMouseMoved
-        btn_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Cancelar2.png")));
-    }//GEN-LAST:event_btn_CancelarMouseMoved
-
-    private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        //Cierra la vetana y pregunta si desea continuar en caso de que algún campo contenga datos.
-        if (txt_Doc.getText().length() != 0 || txt_Cliente.getText().length() != 0) {
-            int opc = JOptionPane.showConfirmDialog(null, "Si continúa perderá los datos \n¿Está seguro que desea continuar?", "ALERTA", 0, 2);
-            if (opc == 0) {
-                this.dispose();
-            }
-        } else {
-            this.dispose();
-        }
-    }//GEN-LAST:event_btn_CancelarActionPerformed
-
-    private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
-        //Limpiar el formulario y recarga la grid de facturas (queda en blanco)
-        limpiarCampos();
-        mostrarFacturas();
-    }//GEN-LAST:event_btn_LimpiarActionPerformed
-
     private void btn_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CrearActionPerformed
         //Valida que los campos no estén vacíos
         if (txt_Doc.getText().length() == 0 || txt_Cliente.getText().length() == 0) {
@@ -423,7 +358,7 @@ public class P_Facturar extends javax.swing.JFrame {
         } else {
             //Almacena en un array los números de facturas
             Integer [] reservas = new Integer[gridFacturas.getRowCount()];
-            //Recupera la información de lo que se va a facturar 
+            //Recupera la información de lo que se va a facturar
             int fl = gridFacturas.getSelectedRow();
             int cantHab = gridFacturas.getRowCount();
             int dcto = Integer.parseInt(txt_dcto.getText());
@@ -439,10 +374,64 @@ public class P_Facturar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_CrearActionPerformed
 
+    private void btn_CrearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CrearMouseExited
+        btn_Crear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Crear.png")));
+    }//GEN-LAST:event_btn_CrearMouseExited
+
+    private void btn_CrearMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CrearMouseMoved
+        btn_Crear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Crear2.png")));
+    }//GEN-LAST:event_btn_CrearMouseMoved
+
+    private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
+        //Cierra la vetana y pregunta si desea continuar en caso de que algún campo contenga datos.
+        if (txt_Doc.getText().length() != 0 || txt_Cliente.getText().length() != 0) {
+            int opc = JOptionPane.showConfirmDialog(null, "Si continúa perderá los datos \n¿Está seguro que desea continuar?", "ALERTA", 0, 2);
+            if (opc == 0) {
+                this.dispose();
+            }
+        } else {
+            this.dispose();
+        }
+    }//GEN-LAST:event_btn_CancelarActionPerformed
+
+    private void btn_CancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CancelarMouseExited
+        btn_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Cancelar.png")));
+    }//GEN-LAST:event_btn_CancelarMouseExited
+
+    private void btn_CancelarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CancelarMouseMoved
+        btn_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Cancelar2.png")));
+    }//GEN-LAST:event_btn_CancelarMouseMoved
+
+    private void btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimpiarActionPerformed
+        //Limpiar el formulario y recarga la grid de facturas (queda en blanco)
+        limpiarCampos();
+        mostrarFacturas();
+    }//GEN-LAST:event_btn_LimpiarActionPerformed
+
+    private void btn_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimpiarMouseExited
+        btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar.png")));
+    }//GEN-LAST:event_btn_LimpiarMouseExited
+
+    private void btn_LimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimpiarMouseMoved
+        btn_Limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Limpiar2.png")));
+    }//GEN-LAST:event_btn_LimpiarMouseMoved
+
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
         //Llama el método que busca las reservas a facturar
         buscarReservas();
     }//GEN-LAST:event_btn_BuscarActionPerformed
+
+    private void btn_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_BuscarMouseExited
+        btn_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Buscar.png")));
+    }//GEN-LAST:event_btn_BuscarMouseExited
+
+    private void btn_BuscarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_BuscarMouseMoved
+        btn_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas/Images/Btn_Buscar2.png")));
+    }//GEN-LAST:event_btn_BuscarMouseMoved
+
+    private void txt_DocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DocActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_DocActionPerformed
 
     public void mostrarFacturas() {
         //Carga la grid con los datos de las reservas activas para ese nit
@@ -509,14 +498,12 @@ public class P_Facturar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelFac;
     private javax.swing.JTextField txt_Cliente;
     private javax.swing.JTextField txt_Doc;
     private javax.swing.JTextField txt_dcto;
-    private javax.swing.JTextField txt_fv;
     private javax.swing.JTextField txt_subTotal;
     private javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables
